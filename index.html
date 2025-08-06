@@ -24,7 +24,7 @@
             <h1 class="text-3xl font-bold text-indigo-400">Your Name</h1>
             <p class="text-sm text-gray-400 mt-1">Project Portfolio</p>
         </div>
-               <nav class="flex-grow">
+        <nav class="flex-grow">
             <ul class="space-y-4">
                 <li>
                     <a href="#about" class="nav-link main-nav-link block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out active-link bg-gray-700">
@@ -81,7 +81,7 @@
     <!-- Main Content Area -->
     <main class="flex-grow p-8 overflow-y-auto">
         <!-- About Me Section -->
-        <section id="about" class="content-section active bg-white rounded-xl shadow-lg p-8 mb-8">
+        <section id="about" class="content-section main-content-section active bg-white rounded-xl shadow-lg p-8 mb-8">
             <h2 class="text-4xl font-extrabold text-gray-800 mb-6">About Me</h2>
             <p class="text-lg text-gray-700 leading-relaxed">
                 Hello! I'm [Your Name], a passionate developer with a knack for creating engaging and functional web experiences. My journey in programming began with [mention something brief, e.g., a simple game, a coding course] and has since evolved into a continuous exploration of new technologies and problem-solving. I specialize in [mention your primary area, e.g., front-end development, full-stack, data science] and love bringing ideas to life through code.
@@ -91,70 +91,128 @@
             </p>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="content-section bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-8">My Latest Work</h2>
+        <!-- Projects Overview Section -->
+        <section id="projects" class="content-section main-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-8">My Latest Work Overview</h2>
             <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-                Welcome to my project showcase! Here you'll find a collection of my recent work, ranging from web applications to data science projects.
+                Welcome to my project showcase! Here you'll find an overview of my recent work. Please select a specific project from the **"Projects"** sub-navigation on the left to see more details about each one.
             </p>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project Card 1 -->
+                <!-- Project Card 1 (Overview) -->
                 <div class="bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Title One</h3>
                         <p class="text-gray-700 mb-4">
-                            A brief and engaging description of Project One. Highlight its purpose, key features, and what technologies were used. Keep it concise!
+                            A brief overview of Project One. This project focused on [mention a key aspect or technology].
                         </p>
-                        <a href="https://github.com/your-github-username/project-one-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                            View on GitHub
+                        <a href="#project-one-detail" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                            Learn More
                         </a>
                     </div>
                 </div>
 
-                <!-- Project Card 2 -->
+                <!-- Project Card 2 (Overview) -->
                 <div class="bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Title Two</h3>
                         <p class="text-gray-700 mb-4">
-                            Another compelling description for Project Two. What problem does it solve? What makes it unique? Add a call to action.
+                            This project involved [mention another key aspect or technology]. It's a great example of [what it demonstrates].
                         </p>
-                        <a href="https://github.com/your-github-username/project-two-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                            View on GitHub
+                        <a href="#project-two-detail" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                            Learn More
                         </a>
                     </div>
                 </div>
 
-                <!-- Project Card 3 -->
+                <!-- Project Card 3 (Overview) -->
                 <div class="bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Title Three</h3>
                         <p class="text-gray-700 mb-4">
-                            Description for Project Three. You can mention if it's a work in progress, a personal challenge, or a collaborative effort.
+                            An overview of Project Three, highlighting its main features and technologies.
                         </p>
-                        <a href="https://github.com/your-github-username/project-three-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                            View on GitHub
+                        <a href="#project-three-detail" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                            Learn More
                         </a>
                     </div>
                 </div>
-
-                <!-- Project Card 4 -->
-                <div class="bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Title Four</h3>
-                        <p class="text-gray-700 mb-4">
-                            This is an example of a fourth project card. Duplicate and fill in details for each of your projects!
-                        </p>
-                        <a href="https://github.com/your-github-username/project-four-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                            View on GitHub
-                        </a>
-                    </div>
-                </div>
+                <!-- Add more project overview cards here as needed -->
             </div>
         </section>
 
+        <!-- Individual Project Detail Sections -->
+        <section id="project-one-detail" class="content-section sub-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Project Title One: Detailed View</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                Welcome to the detailed page for Project Title One! This project involved [brief overview of the project's core, e.g., building a responsive e-commerce site, developing a machine learning model].
+            </p>
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Key Features:</h3>
+            <ul class="list-disc list-inside text-gray-700 text-lg space-y-2 mb-4">
+                <li>Feature 1: [Description of feature 1, e.g., User authentication and authorization]</li>
+                <li>Feature 2: [Description of feature 2, e.g., Real-time data updates using WebSockets]</li>
+                <li>Feature 3: [Description of feature 3, e.g., Integration with a third-party API for payments]</li>
+            </ul>
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Technologies Used:</h3>
+            <p class="text-lg text-gray-700 mb-4">
+                This project was built using: [List specific technologies, e.g., **React**, **Node.js (Express)**, **MongoDB**, **Tailwind CSS**].
+            </p>
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Challenges & Learnings:</h3>
+            <p class="text-lg text-gray-700 mb-4">
+                [Discuss a significant challenge you faced during development, how you approached solving it, and what you learned from the experience. For example: "A major challenge was optimizing database queries for large datasets, which I addressed by implementing indexing and denormalization strategies. This taught me the importance of database design for performance."]
+            </p>
+            <div class="flex flex-wrap gap-4 mt-6">
+                <a href="https://github.com/your-github-username/project-one-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    View Code on GitHub
+                </a>
+                <!-- Add a live demo link if applicable -->
+                <a href="https://your-github-username.github.io/project-one-live-demo/" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Live Demo
+                </a>
+            </div>
+        </section>
+
+        <section id="project-two-detail" class="content-section sub-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Project Title Two: Detailed View</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                This is the detailed page for Project Title Two. Here you can elaborate on its functionalities, the design choices made, and any interesting aspects of its development.
+            </p>
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Goals:</h3>
+            <ul class="list-disc list-inside text-gray-700 text-lg space-y-2 mb-4">
+                <li>Goal 1: [Description of goal 1]</li>
+                <li>Goal 2: [Description of goal 2]</li>
+            </ul>
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Technical Stack:</h3>
+            <p class="text-lg text-gray-700 mb-4">
+                Technologies used include: [List technologies, e.g., **Python (Flask)**, **PostgreSQL**, **Vue.js**].
+            </p>
+            <div class="flex flex-wrap gap-4 mt-6">
+                <a href="https://github.com/your-github-username/project-two-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    View Code on GitHub
+                </a>
+                <!-- Add a live demo link if applicable -->
+            </div>
+        </section>
+
+        <section id="project-three-detail" class="content-section sub-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Project Title Three: Detailed View</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                Dive deeper into Project Title Three. Explain the problem it solves, the features implemented, and your personal contributions.
+            </p>
+            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Implementation Details:</h3>
+            <p class="text-lg text-gray-700 mb-4">
+                [Describe how you implemented certain features, e.g., "Used **D3.js** for interactive data visualizations," or "Implemented a **RESTful API** for data retrieval."]
+            </p>
+            <div class="flex flex-wrap gap-4 mt-6">
+                <a href="https://github.com/your-github-username/project-three-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    View Code on GitHub
+                </a>
+                <!-- Add a live demo link if applicable -->
+            </div>
+        </section>
+        <!-- Add more individual project detail sections here as needed -->
+
         <!-- Skills Section -->
-        <section id="skills" class="content-section bg-white rounded-xl shadow-lg p-8 mb-8">
+        <section id="skills" class="content-section main-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
             <h2 class="text-4xl font-extrabold text-gray-800 mb-6">My Skills</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -197,7 +255,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="content-section bg-white rounded-xl shadow-lg p-8 mb-8">
+        <section id="contact" class="content-section main-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
             <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Get in Touch</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-6">
                 I'm always open to new opportunities, collaborations, and interesting discussions. Feel free to reach out!
@@ -218,37 +276,81 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
+            const mainNavLinks = document.querySelectorAll('.main-nav-link');
+            const subNavLinks = document.querySelectorAll('.sub-nav-link');
+            const allContentSections = document.querySelectorAll('.content-section');
+            const projectsSubNav = document.getElementById('projects-sub-nav');
+            const projectsMainLink = document.getElementById('projects-main-link');
 
-            // Function to show a specific section and highlight its nav link
-            function showSection(targetId) {
-                // Hide all content sections
-                contentSections.forEach(section => {
+            // Helper function to hide all content sections
+            function hideAllContent() {
+                allContentSections.forEach(section => {
                     section.classList.remove('active');
-                    section.style.display = 'none'; // Ensure it's hidden
+                    section.style.display = 'none';
                 });
-                // Remove active styling from all nav links
-                navLinks.forEach(link => {
+            }
+
+            // Helper function to deactivate all navigation links
+            function deactivateAllNavLinks() {
+                mainNavLinks.forEach(link => {
                     link.classList.remove('active-link', 'bg-gray-700');
                 });
+                subNavLinks.forEach(link => {
+                    link.classList.remove('active-link', 'bg-gray-700');
+                });
+            }
 
-                // Show the target section
+            // Function to show a specific section and manage navigation state
+            function showSection(targetId) {
+                hideAllContent();
+                deactivateAllNavLinks();
+
                 const targetSection = document.querySelector(targetId);
+                const activeNavLink = document.querySelector(`.nav-link[href="${targetId}"]`);
+
                 if (targetSection) {
                     targetSection.classList.add('active');
                     targetSection.style.display = 'block'; // Show the section
                 }
 
-                // Highlight the active nav link
-                const activeNavLink = document.querySelector(`.nav-link[href="${targetId}"]`);
                 if (activeNavLink) {
                     activeNavLink.classList.add('active-link', 'bg-gray-700');
                 }
+
+                // Logic for Projects section and its sub-navigation visibility
+                if (targetId === '#projects' || targetSection.classList.contains('sub-content-section')) {
+                    // Ensure the main #projects link is highlighted
+                    projectsMainLink.classList.add('active-link', 'bg-gray-700');
+                    projectsSubNav.classList.remove('hidden'); // Show sub-navigation
+
+                    // If a sub-project detail section is active, ensure the main #projects overview is also displayed
+                    // This allows the overview to be seen when navigating directly to a sub-project detail.
+                    if (targetSection.classList.contains('sub-content-section')) {
+                        document.querySelector('#projects').style.display = 'block';
+                    }
+                } else {
+                    // For non-project main sections, hide the sub-navigation
+                    projectsSubNav.classList.add('hidden');
+                }
             }
 
-            // Add click listeners to navigation links
-            navLinks.forEach(link => {
+            // Add click listeners for main navigation links
+            mainNavLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent default anchor link behavior
+                    const targetId = link.getAttribute('href');
+                    showSection(targetId);
+
+                    // If the "Projects" main link is clicked, and there are sub-projects,
+                    // automatically show the first sub-project detail.
+                    if (targetId === '#projects' && subNavLinks.length > 0) {
+                        showSection(subNavLinks[0].getAttribute('href'));
+                    }
+                });
+            });
+
+            // Add click listeners for sub-navigation links
+            subNavLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
                     event.preventDefault(); // Prevent default anchor link behavior
                     const targetId = link.getAttribute('href');
@@ -261,7 +363,7 @@
             if (initialHash && document.querySelector(initialHash)) {
                 showSection(initialHash);
             } else {
-                // Default to showing the 'about' section if no hash or invalid hash
+                // Default to showing the 'about' section and hide sub-nav on initial load
                 showSection('#about');
             }
         });
