@@ -11,35 +11,76 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        /* Hide sections by default, JavaScript will show them */
+        .content-section:not(.active) {
+            display: none;
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
-    <!-- Header Section -->
-    <header class="bg-white shadow-md py-6 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center">
-            <h1 class="text-3xl font-bold text-indigo-700 mb-2 sm:mb-0">
-                Your Name's Projects
-            </h1>
-            <nav>
-                <ul class="flex space-x-4">
-                    <li><a href="#projects" class="text-indigo-600 hover:text-indigo-800 font-medium rounded-md px-3 py-2 transition duration-300 ease-in-out hover:bg-indigo-50">Projects</a></li>
-                    <li><a href="https://github.com/your-github-username" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium rounded-md px-3 py-2 transition duration-300 ease-in-out hover:bg-indigo-50">GitHub Profile</a></li>
-                </ul>
-            </nav>
+<body class="bg-gray-100 text-gray-900 min-h-screen flex">
+    <!-- Left Navigation Bar -->
+    <aside class="w-64 bg-gray-800 text-white flex flex-col p-6 shadow-lg">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-indigo-400">Your Name</h1>
+            <p class="text-sm text-gray-400 mt-1">Project Portfolio</p>
         </div>
-    </header>
+        <nav class="flex-grow">
+            <ul class="space-y-4">
+                <li>
+                    <a href="#about" class="nav-link block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out active-link bg-gray-700">
+                        About Me
+                    </a>
+                </li>
+                <li>
+                    <a href="#projects" class="nav-link block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out">
+                        Projects
+                    </a>
+                </li>
+                <li>
+                    <a href="#skills" class="nav-link block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out">
+                        Skills
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" class="nav-link block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out">
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/your-github-username" target="_blank" class="block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out">
+                        GitHub Profile
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="mt-8 text-center text-sm text-gray-400">
+            &copy; 2025 Your Name
+        </div>
+    </aside>
 
-    <!-- Main Content Section -->
-    <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <section id="projects" class="mb-12">
-            <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-8">My Latest Work</h2>
-            <p class="text-lg text-center text-gray-600 mb-10 max-w-2xl mx-auto">
+    <!-- Main Content Area -->
+    <main class="flex-grow p-8 overflow-y-auto">
+        <!-- About Me Section -->
+        <section id="about" class="content-section active bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">About Me</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Hello! I'm [Your Name], a passionate developer with a knack for creating engaging and functional web experiences. My journey in programming began with [mention something brief, e.g., a simple game, a coding course] and has since evolved into a continuous exploration of new technologies and problem-solving. I specialize in [mention your primary area, e.g., front-end development, full-stack, data science] and love bringing ideas to life through code.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed mt-4">
+                Outside of coding, you can find me [mention a hobby or interest, e.g., hiking, reading, playing music]. I believe in lifelong learning and am always looking for new challenges and opportunities to grow. Feel free to explore my projects and connect with me!
+            </p>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="content-section bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-8">My Latest Work</h2>
+            <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
                 Welcome to my project showcase! Here you'll find a collection of my recent work, ranging from web applications to data science projects.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project Card 1 -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out overflow-hidden">
+                <div class="bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Title One</h3>
                         <p class="text-gray-700 mb-4">
@@ -52,7 +93,7 @@
                 </div>
 
                 <!-- Project Card 2 -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out overflow-hidden">
+                <div class="bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Title Two</h3>
                         <p class="text-gray-700 mb-4">
@@ -65,7 +106,7 @@
                 </div>
 
                 <!-- Project Card 3 -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out overflow-hidden">
+                <div class="bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Title Three</h3>
                         <p class="text-gray-700 mb-4">
@@ -77,9 +118,8 @@
                     </div>
                 </div>
 
-                <!-- Add more project cards here as needed -->
-                <!-- Example of another card -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out overflow-hidden">
+                <!-- Project Card 4 -->
+                <div class="bg-gray-50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Title Four</h3>
                         <p class="text-gray-700 mb-4">
@@ -92,14 +132,119 @@
                 </div>
             </div>
         </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="content-section bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">My Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Programming Languages</h3>
+                    <ul class="list-disc list-inside text-gray-700 text-lg space-y-2">
+                        <li>JavaScript (ES6+)</li>
+                        <li>Python</li>
+                        <li>HTML5 & CSS3</li>
+                        <li>[Another Language, e.g., Java, C++]</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Frameworks & Libraries</h3>
+                    <ul class="list-disc list-inside text-gray-700 text-lg space-y-2">
+                        <li>React.js</li>
+                        <li>Node.js (Express)</li>
+                        <li>Tailwind CSS</li>
+                        <li>[Another Framework, e.g., Django, Flask]</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Tools & Databases</h3>
+                    <ul class="list-disc list-inside text-gray-700 text-lg space-y-2">
+                        <li>Git & GitHub</li>
+                        <li>VS Code</li>
+                        <li>MongoDB</li>
+                        <li>[Another Tool/Database, e.g., SQL, Docker]</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Concepts & Methodologies</h3>
+                    <ul class="list-disc list-inside text-gray-700 text-lg space-y-2">
+                        <li>Responsive Design</li>
+                        <li>RESTful APIs</li>
+                        <li>Agile Development</li>
+                        <li>[Another Concept, e.g., Cloud Computing]</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Get in Touch</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                I'm always open to new opportunities, collaborations, and interesting discussions. Feel free to reach out!
+            </p>
+            <div class="flex flex-col space-y-4 max-w-md mx-auto">
+                <a href="mailto:your.email@example.com" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105">
+                    Email Me: your.email@example.com
+                </a>
+                <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105">
+                    Connect on LinkedIn
+                </a>
+                <a href="https://twitter.com/your-twitter-handle" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105">
+                    Follow on Twitter
+                </a>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer Section -->
-    <footer class="bg-gray-800 text-white py-6 px-4 sm:px-6 lg:px-8 mt-auto">
-        <div class="max-w-4xl mx-auto text-center text-sm">
-            <p>&copy; 2025 Your Name. All rights reserved.</p>
-            <p class="mt-2">Built with ❤️ and Tailwind CSS.</p>
-        </div>
-    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            // Function to show a specific section and highlight its nav link
+            function showSection(targetId) {
+                // Hide all content sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                    section.style.display = 'none'; // Ensure it's hidden
+                });
+                // Remove active styling from all nav links
+                navLinks.forEach(link => {
+                    link.classList.remove('active-link', 'bg-gray-700');
+                });
+
+                // Show the target section
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    targetSection.style.display = 'block'; // Show the section
+                }
+
+                // Highlight the active nav link
+                const activeNavLink = document.querySelector(`.nav-link[href="${targetId}"]`);
+                if (activeNavLink) {
+                    activeNavLink.classList.add('active-link', 'bg-gray-700');
+                }
+            }
+
+            // Add click listeners to navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent default anchor link behavior
+                    const targetId = link.getAttribute('href');
+                    showSection(targetId);
+                });
+            });
+
+            // Handle initial load based on URL hash (if any)
+            const initialHash = window.location.hash;
+            if (initialHash && document.querySelector(initialHash)) {
+                showSection(initialHash);
+            } else {
+                // Default to showing the 'about' section if no hash or invalid hash
+                showSection('#about');
+            }
+        });
+    </script>
 </body>
 </html>
