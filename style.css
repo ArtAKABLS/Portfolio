@@ -14,8 +14,8 @@ h1 {
   position: relative;
   margin: 0 auto;
   padding-left: 40px;
-  border-left: 3px solid #444;
   max-width: 600px;
+  border-left: 3px solid #ccc; /* vertical line */
 }
 
 .timeline-item {
@@ -26,17 +26,25 @@ h1 {
 .timeline-node {
   width: 20px;
   height: 20px;
-  background: #444;
   border-radius: 50%;
   position: absolute;
-  left: -11px; /* centers the node on the line */
+  left: -11px; /* centers node on line */
   top: 0;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .timeline-node:hover {
-  background: #0077ff;
+  transform: scale(1.2);
+}
+
+/* Color coding */
+.timeline-node.personal {
+  background: #0077ff; /* blue for personal */
+}
+
+.timeline-node.university {
+  background: #ff5733; /* orange for university */
 }
 
 .timeline-content {
@@ -45,6 +53,7 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   display: none; /* hidden by default */
+  margin-left: 20px;
 }
 
 .timeline-content.active {
