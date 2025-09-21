@@ -6,70 +6,78 @@ body {
   padding: 20px;
 }
 
-header, footer {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
 h1 {
   text-align: center;
-  margin: 40px 0;
+  margin-bottom: 40px;
 }
 
+/* Timeline container */
 .timeline {
   position: relative;
   margin: 0 auto;
-  padding-left: 40px;
-  max-width: 700px;
-  border-left: 2px solid black; /* vertical line */
+  padding-left: 120px; /* space for dates */
+  max-width: 800px;
+  border-left: 3px solid #000; /* vertical line */
 }
 
+/* Each item */
 .timeline-item {
   position: relative;
-  margin: 30px 0;
-  padding-left: 20px;
+  margin: 40px 0;
 }
 
-.timeline-node {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid black;
+/* Dates aligned left */
+.timeline-date {
   position: absolute;
-  left: -12px; /* aligns node on line */
-  top: 5px;
+  left: -120px;
+  width: 100px;
+  text-align: right;
+  font-weight: bold;
+}
+
+/* Node */
+.timeline-node {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: absolute;
+  left: -12px;
+  top: 4px;
   cursor: pointer;
   transition: transform 0.2s ease;
+  border: 2px solid #000;
 }
 
 .timeline-node:hover {
   transform: scale(1.2);
 }
 
-/* Color coding */
+/* Node color coding */
 .timeline-node.personal {
   background: #0077ff; /* blue */
 }
 
 .timeline-node.university {
-  background: #ffcc00; /* yellow */
+  background: #ff5733; /* orange */
 }
 
+/* Project title always visible */
 .timeline-header {
+  font-size: 1.1em;
   font-weight: bold;
-  display: flex;
-  gap: 10px;
-  align-items: center;
+  margin-left: 20px;
+  cursor: pointer; /* clickable like node */
 }
 
-.timeline-header .date {
-  font-style: italic;
-  min-width: 100px;
-}
-
+/* Hidden details */
 .timeline-content {
-  margin-top: 5px;
-  display: none; /* hidden until click */
+  display: none;
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 6px;
+  margin-left: 20px;
+  margin-top: 8px;
+  border: 1px solid #ddd;
 }
 
 .timeline-content.active {
