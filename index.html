@@ -48,174 +48,60 @@
 <body class="antialiased min-h-screen">
     <div class="fixed top-5 left-5 z-50">
         <button id="lang-en" class="px-4 py-2 mr-2 bg-gray-700 text-white rounded-md shadow-md hover:bg-gray-600 transition-colors">EN</button>
-        <button id="lang-es" class="px-4 py-2 bg-gray-700 text-white rounded-md shadow-md hover:bg-gray-600 transition-colors">ES</button>
+        <button id="lang-de" class="px-4 py-2 bg-gray-700 text-white rounded-md shadow-md hover:bg-gray-600 transition-colors">DE</button>
     </div>
 
-    <div class="container mx-auto py-20 px-4 sm:px-6 lg:px-8">
+    <!-- The loading indicator is visible by default -->
+    <div id="loading-indicator" class="flex items-center justify-center min-h-screen text-2xl font-bold">
+        Loading...
+    </div>
+
+    <!-- The main content is hidden by default -->
+    <div id="main-content" class="container mx-auto py-20 px-4 sm:px-6 lg:px-8 hidden">
         <h1 id="main-title" class="text-4xl sm:text-5xl lg:text-6xl font-bold text-center mb-16 sm:mb-24"></h1>
 
         <div class="relative timeline-container">
             <div class="timeline-line"></div>
         </div>
+
+        <div class="h-[50vh]"></div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const projects = [
-                {
-                    date: "November 15, 2018",
-                    title: "Squareflair Today",
-                    description: "We design and build from scratch. When we say 100% custom we mean it—and we build all sites on the Squarespace Developer platform.",
-                    type: "university"
-                },
-                {
-                    date: "2009",
-                    title: "Squareflair was Born",
-                    description: "We can be all things to Squarespace users!",
-                    type: "personal"
-                },
-                {
-                    date: "2005",
-                    title: "Creative Component Launched",
-                    description: "We can be all things to all people!",
-                    type: "university"
-                },
-                {
-                    date: "65 Million B.C.",
-                    title: "Dinosaurs Roamed the Earth",
-                    description: "RAWWWWWWWWRRR",
-                    type: "personal"
-                },
-                {
-                    date: "2022",
-                    title: "Data Visualization Project",
-                    description: "A deep dive into creating interactive charts and graphs using modern JavaScript libraries.",
-                    type: "university"
-                },
-                {
-                    date: "2021",
-                    title: "Full-Stack Web App",
-                    description: "A comprehensive project showcasing skills in both front-end and back-end development.",
-                    type: "personal"
-                },
-                {
-                    date: "2020",
-                    title: "Mobile Game Development",
-                    description: "Developed a mobile game for both iOS and Android platforms using a cross-platform engine.",
-                    type: "university"
-                },
-                {
-                    date: "2019",
-                    title: "Machine Learning Predictor",
-                    description: "Built a predictive model to forecast market trends with high accuracy.",
-                    type: "personal"
-                },
-                {
-                    date: "2017",
-                    title: "Open Source Contribution",
-                    description: "Contributed to a popular open-source project, adding new features and fixing bugs.",
-                    type: "university"
-                },
-                {
-                    date: "2016",
-                    title: "Personal Blog Engine",
-                    description: "Created a lightweight and highly customizable blog engine from scratch.",
-                    type: "personal"
-                }
-            ];
-
-            const content = {
-                en: {
-                    title: "Timeline",
-                    projects: projects.map(p => ({
-                        date: p.date,
-                        title: p.title,
-                        description: p.description,
-                        type: p.type
-                    }))
-                },
-                es: {
-                    title: "Línea de tiempo",
-                    projects: [
-                         {
-                            date: "15 de noviembre de 2018",
-                            title: "Squareflair Hoy",
-                            description: "Diseñamos y construimos desde cero. Cuando decimos 100% a medida, lo decimos en serio, y construimos todos los sitios en la plataforma de desarrolladores de Squarespace.",
-                            type: "university"
-                        },
-                        {
-                            date: "2009",
-                            title: "Nació Squareflair",
-                            description: "¡Podemos ser todo para los usuarios de Squarespace!",
-                            type: "personal"
-                        },
-                        {
-                            date: "2005",
-                            title: "Lanzamiento del Componente Creativo",
-                            description: "¡Podemos ser todo para todas las personas!",
-                            type: "university"
-                        },
-                        {
-                            date: "65 Millones A.C.",
-                            title: "Los Dinosaurios Deambularon por la Tierra",
-                            description: "RAWWWWWWWWRRR",
-                            type: "personal"
-                        },
-                        {
-                            date: "2022",
-                            title: "Proyecto de Visualización de Datos",
-                            description: "Una inmersión profunda en la creación de gráficos y tablas interactivos utilizando bibliotecas de JavaScript modernas.",
-                            type: "university"
-                        },
-                        {
-                            date: "2021",
-                            title: "Aplicación Web Full-Stack",
-                            description: "Un proyecto integral que demuestra habilidades en el desarrollo tanto de front-end como de back-end.",
-                            type: "personal"
-                        },
-                        {
-                            date: "2020",
-                            title: "Desarrollo de Juegos para Móviles",
-                            description: "Desarrollé un juego móvil para plataformas iOS y Android utilizando un motor multiplataforma.",
-                            type: "university"
-                        },
-                        {
-                            date: "2019",
-                            title: "Predictor de Aprendizaje Automático",
-                            description: "Construí un modelo predictivo para pronosticar las tendencias del mercado con alta precisión.",
-                            type: "personal"
-                        },
-                        {
-                            date: "2017",
-                            title: "Contribución de Código Abierto",
-                            description: "Contribuí a un popular proyecto de código abierto, añadiendo nuevas características y corrigiendo errores.",
-                            type: "university"
-                        },
-                        {
-                            date: "2016",
-                            title: "Motor de Blog Personal",
-                            description: "Creé un motor de blog ligero y altamente personalizable desde cero.",
-                            type: "personal"
-                        }
-                    ]
-                }
-            };
-
             const timelineContainer = document.querySelector('.timeline-container');
             const mainTitle = document.getElementById('main-title');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            const mainContent = document.getElementById('main-content');
+            
+            let lastExpandedContent = null;
+            let lastExpandedIcon = null;
+            
+            const fetchTranslations = async (lang) => {
+                try {
+                    const response = await fetch(`./locales/${lang}.json`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${lang}.json`);
+                    }
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error("Failed to load language data:", error);
+                    return null;
+                }
+            };
+            
+            
+            function renderTimeline(data) {
+                if (!data) return; 
 
-            let currentLang = 'en';
-
-            function renderTimeline(lang) {
-                timelineContainer.innerHTML = '<div class="timeline-line"></div>'; // Clear and re-add the line
-                const data = content[lang].projects;
-                mainTitle.textContent = content[lang].title;
+                timelineContainer.innerHTML = '<div class="timeline-line"></div>';
+                mainTitle.textContent = data.title;
                 
-                // Track the currently expanded card
-                let lastExpandedContent = null;
-                let lastExpandedIcon = null;
+                lastExpandedContent = null;
+                lastExpandedIcon = null;
 
-                data.forEach((project, index) => {
+                data.projects.forEach((project, index) => {
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
@@ -249,14 +135,12 @@
                     `;
 
                     titleContainer.addEventListener('click', () => {
-                        // Collapse the previously expanded card, if it's not the same as the current one
                         if (lastExpandedContent && lastExpandedContent !== expandableContent) {
                             lastExpandedContent.style.maxHeight = '0px';
                             lastExpandedIcon.style.transform = 'rotate(0deg)';
                             lastExpandedContent.closest('.bg-gray-800').querySelector('.flex').classList.remove('expanded');
                         }
 
-                        // Toggle the current card
                         const isExpanded = titleContainer.classList.toggle('expanded');
                         const svgIcon = titleContainer.querySelector('svg');
 
@@ -264,13 +148,11 @@
                             expandableContent.style.maxHeight = `${expandableContent.scrollHeight}px`;
                             svgIcon.style.transform = 'rotate(45deg)';
                             itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            // Update the last expanded references
                             lastExpandedContent = expandableContent;
                             lastExpandedIcon = svgIcon;
                         } else {
                             expandableContent.style.maxHeight = '0px';
                             svgIcon.style.transform = 'rotate(0deg)';
-                            // Clear references if the current card is being collapsed
                             lastExpandedContent = null;
                             lastExpandedIcon = null;
                         }
@@ -283,19 +165,15 @@
                     itemContainer.appendChild(contentCard);
                     timelineContainer.appendChild(itemContainer);
 
-                    // Dynamic Spacing Logic
-                    // Use setTimeout to wait for the DOM to update with the new element's height
                     setTimeout(() => {
                         const cardHeight = contentCard.offsetHeight;
-                        // Position the node vertically in the middle of its card
                         node.style.top = `${cardHeight / 2}px`;
                         
-                        // If not the first item, calculate margin based on previous item
                         if (index > 0) {
                             const prevItemContainer = timelineContainer.children[index];
                             const prevCard = prevItemContainer.querySelector('.bg-gray-800');
                             const prevCardHeight = prevCard.offsetHeight;
-                            const minSpacing = 40; // Minimum vertical distance in pixels
+                            const minSpacing = 40;
                             const totalPrevHeight = prevCardHeight;
                             const calculatedMargin = totalPrevHeight / 2 + minSpacing;
                             itemContainer.style.marginTop = `${calculatedMargin}px`;
@@ -304,15 +182,32 @@
                 });
             }
 
-            function setLanguage(lang) {
-                currentLang = lang;
-                renderTimeline(currentLang);
+            async function setLanguage(lang) {
+                // Show loading indicator and hide content
+                loadingIndicator.classList.remove('hidden');
+                mainContent.classList.add('hidden');
+
+                const data = translations[lang];
+
+                // Simulate a network fetch delay
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                if (data) {
+                    renderTimeline(data);
+                } else {
+                    console.error("Using default language due to failed fetch.");
+                }
+
+                // Hide loading indicator and show content
+                loadingIndicator.classList.add('hidden');
+                mainContent.classList.remove('hidden');
             }
 
             document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
-            document.getElementById('lang-es').addEventListener('click', () => setLanguage('es'));
+            document.getElementById('lang-de').addEventListener('click', () => setLanguage('de'));
 
-            setLanguage(currentLang);
+            // Load the default language on initial page load
+            setLanguage('en');
         });
     </script>
 </body>
