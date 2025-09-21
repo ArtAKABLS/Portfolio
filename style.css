@@ -1,85 +1,47 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #fff;
-  color: #000;
-  margin: 0;
-  padding: 20px;
+    background-color: #121212;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 40px;
+.language-selector {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    /* Other styles for your buttons */
 }
 
-/* Timeline container */
-.timeline {
-  position: relative;
-  margin: 0 auto;
-  padding-left: 120px; /* space for dates */
-  max-width: 800px;
-  border-left: 3px solid #000; /* vertical line */
+.timeline-container {
+    padding: 50px 0;
+    position: relative;
+    /* This will be the main container for your timeline */
 }
 
-/* Each item */
-.timeline-item {
-  position: relative;
-  margin: 40px 0;
+.timeline-line {
+    width: 2px;
+    background-color: #f0f0f0; /* White line */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-/* Dates aligned left */
-.timeline-date {
-  position: absolute;
-  left: -120px;
-  width: 100px;
-  text-align: right;
-  font-weight: bold;
-}
-
-/* Node */
 .timeline-node {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  position: absolute;
-  left: -12px;
-  top: 4px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  border: 2px solid #000;
+    /* Styles for the color-coded nodes */
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Use JavaScript to set the background color */
 }
 
-.timeline-node:hover {
-  transform: scale(1.2);
+.university-project {
+    background-color: #4CAF50; /* Green for university projects */
 }
 
-/* Node color coding */
-.timeline-node.personal {
-  background: #0077ff; /* blue */
-}
-
-.timeline-node.university {
-  background: #ff5733; /* orange */
-}
-
-/* Project title always visible */
-.timeline-header {
-  font-size: 1.1em;
-  font-weight: bold;
-  margin-left: 20px;
-  cursor: pointer; /* clickable like node */
-}
-
-/* Hidden details */
-.timeline-content {
-  display: none;
-  background: #f9f9f9;
-  padding: 12px;
-  border-radius: 6px;
-  margin-left: 20px;
-  margin-top: 8px;
-  border: 1px solid #ddd;
-}
-
-.timeline-content.active {
-  display: block;
+.personal-project {
+    background-color: #2196F3; /* Blue for personal projects */
 }
