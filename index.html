@@ -85,6 +85,42 @@
                     title: "Dinosaurs Roamed the Earth",
                     description: "RAWWWWWWWWRRR",
                     type: "personal"
+                },
+                {
+                    date: "2022",
+                    title: "Data Visualization Project",
+                    description: "A deep dive into creating interactive charts and graphs using modern JavaScript libraries.",
+                    type: "university"
+                },
+                {
+                    date: "2021",
+                    title: "Full-Stack Web App",
+                    description: "A comprehensive project showcasing skills in both front-end and back-end development.",
+                    type: "personal"
+                },
+                {
+                    date: "2020",
+                    title: "Mobile Game Development",
+                    description: "Developed a mobile game for both iOS and Android platforms using a cross-platform engine.",
+                    type: "university"
+                },
+                {
+                    date: "2019",
+                    title: "Machine Learning Predictor",
+                    description: "Built a predictive model to forecast market trends with high accuracy.",
+                    type: "personal"
+                },
+                {
+                    date: "2017",
+                    title: "Open Source Contribution",
+                    description: "Contributed to a popular open-source project, adding new features and fixing bugs.",
+                    type: "university"
+                },
+                {
+                    date: "2016",
+                    title: "Personal Blog Engine",
+                    description: "Created a lightweight and highly customizable blog engine from scratch.",
+                    type: "personal"
                 }
             ];
 
@@ -124,6 +160,42 @@
                             title: "Los Dinosaurios Deambularon por la Tierra",
                             description: "RAWWWWWWWWRRR",
                             type: "personal"
+                        },
+                        {
+                            date: "2022",
+                            title: "Proyecto de Visualización de Datos",
+                            description: "Una inmersión profunda en la creación de gráficos y tablas interactivos utilizando bibliotecas de JavaScript modernas.",
+                            type: "university"
+                        },
+                        {
+                            date: "2021",
+                            title: "Aplicación Web Full-Stack",
+                            description: "Un proyecto integral que demuestra habilidades en el desarrollo tanto de front-end como de back-end.",
+                            type: "personal"
+                        },
+                        {
+                            date: "2020",
+                            title: "Desarrollo de Juegos para Móviles",
+                            description: "Desarrollé un juego móvil para plataformas iOS y Android utilizando un motor multiplataforma.",
+                            type: "university"
+                        },
+                        {
+                            date: "2019",
+                            title: "Predictor de Aprendizaje Automático",
+                            description: "Construí un modelo predictivo para pronosticar las tendencias del mercado con alta precisión.",
+                            type: "personal"
+                        },
+                        {
+                            date: "2017",
+                            title: "Contribución de Código Abierto",
+                            description: "Contribuí a un popular proyecto de código abierto, añadiendo nuevas características y corrigiendo errores.",
+                            type: "university"
+                        },
+                        {
+                            date: "2016",
+                            title: "Motor de Blog Personal",
+                            description: "Creé un motor de blog ligero y altamente personalizable desde cero.",
+                            type: "personal"
                         }
                     ]
                 }
@@ -139,12 +211,13 @@
                 timelineContainer.innerHTML = '<div class="timeline-line"></div>'; // Clear and re-add the line
                 const data = content[lang].projects;
                 mainTitle.textContent = content[lang].title;
+                let lastCardElement = null;
 
                 data.forEach((project, index) => {
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
-                    itemContainer.className = `flex items-center w-full my-6 sm:my-12 relative ${isLeft ? 'flex-row-reverse' : 'flex-row'}`;
+                    itemContainer.className = `flex items-center w-full my-4 sm:my-8 relative ${isLeft ? 'flex-row-reverse' : 'flex-row'}`;
 
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
@@ -182,6 +255,8 @@
                         if (isExpanded) {
                             expandableContent.style.maxHeight = `${expandableContent.scrollHeight}px`;
                             svgIcon.style.transform = 'rotate(45deg)';
+                            // Smoothly scroll to the clicked item
+                            itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         } else {
                             expandableContent.style.maxHeight = '0px';
                             svgIcon.style.transform = 'rotate(0deg)';
@@ -207,7 +282,7 @@
                     if (index > 0) {
                         const prevItem = timelineContainer.children[index];
                         const prevHeight = prevItem.offsetHeight;
-                        itemContainer.style.marginTop = `${Math.max(24, totalHeight/2 - prevHeight/2)}px`;
+                        itemContainer.style.marginTop = `${Math.max(12, totalHeight/2 - prevHeight/2)}px`;
                     }
                 });
             }
