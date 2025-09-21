@@ -1,0 +1,15 @@
+{
+"title": "Timeline",
+"projects": [
+{ "date": "November 15, 2018", "title": "Squareflair Today", "description": "We design and build from scratch. When we say 100% custom we mean it—and we build all sites on the Squarespace Developer platform.", "type": "university" },
+{ "date": "2009", "title": "Squareflair was Born", "description": "We can be all things to Squarespace users!", "type": "personal" },
+{ "date": "2005", "title": "Creative Component Launched", "description": "We can be all things to all people!", "type": "university" },
+{ "date": "65 Million B.C.", "title": "Dinosaurs Roamed the Earth", "description": "RAWWWWWWWWRRR", "type": "personal" },
+{ "date": "2022", "title": "Data Visualization Project", "description": "A deep dive into creating interactive charts and graphs using modern JavaScript libraries.", "type": "university" },
+{ "date": "2021", "title": "Full-Stack Web App", "description": "A comprehensive project showcasing skills in both front-end and back-end development.", "type": "personal" },
+{ "date": "2020", "title": "Mobile Game Development", "description": "Developed a mobile game for both iOS and Android platforms using a cross-platform engine.", "type": "university" },
+{ "date": "2019", "title": "Machine Learning Predictor", "description": "Built a predictive model to forecast market trends with high accuracy.", "type": "personal" },
+{ "date": "2017", "title": "Open Source Contribution", "description": "Contributed to a popular open-source project, adding new features and fixing bugs.", "type": "university" },
+{ "date": "2016", "title": "Personal Blog Engine", "description": "Created a lightweight and highly customizable blog engine from scratch.", "type": "personal" }
+]
+}
