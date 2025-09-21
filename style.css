@@ -1,47 +1,19 @@
-body {
-    background-color: #121212;
-    color: #f0f0f0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+const content = {
+    en: {
+        title: "My Portfolio",
+        project1: "Project Alpha: A University Project",
+        // ... more content
+    },
+    es: {
+        title: "Mi Portafolio",
+        project1: "Proyecto Alfa: Un Proyecto Universitario",
+        // ... more content
+    }
+};
 
-.language-selector {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    /* Other styles for your buttons */
-}
+document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+document.getElementById('lang-es').addEventListener('click', () => setLanguage('es'));
 
-.timeline-container {
-    padding: 50px 0;
-    position: relative;
-    /* This will be the main container for your timeline */
-}
-
-.timeline-line {
-    width: 2px;
-    background-color: #f0f0f0; /* White line */
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.timeline-node {
-    /* Styles for the color-coded nodes */
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    /* Use JavaScript to set the background color */
-}
-
-.university-project {
-    background-color: #4CAF50; /* Green for university projects */
-}
-
-.personal-project {
-    background-color: #2196F3; /* Blue for personal projects */
+function setLanguage(lang) {
+    // Logic to update all text content on the page
 }
