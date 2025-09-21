@@ -1,1 +1,15 @@
-
+{
+                    "title": "Zeitleiste",
+                    "projects": [
+                        { "date": "15. November 2018", "title": "Squareflair Heute", "description": "Wir entwerfen und bauen von Grund auf neu. Wenn wir sagen 100% maßgeschneidert, meinen wir das auch so – und wir bauen alle Websites auf der Squarespace Entwicklerplattform.", "type": "university" },
+                        { "date": "2009", "title": "Squareflair wurde geboren", "description": "Wir können alles für Squarespace-Benutzer sein!", "type": "personal" },
+                        { "date": "2005", "title": "Kreative Komponente gestartet", "description": "Wir können alles für alle sein!", "type": "university" },
+                        { "date": "65 Millionen v. Chr.", "title": "Dinosaurier durchstreiften die Erde", "description": "RAWWWWWWWWRRR", "type": "personal" },
+                        { "date": "2022", "title": "Projekt Datenvisualisierung", "description": "Ein tiefer Einblick in die Erstellung interaktiver Diagramme und Grafiken mit modernen JavaScript-Bibliotheken.", "type": "university" },
+                        { "date": "2021", "title": "Full-Stack Webanwendung", "description": "Ein umfassendes Projekt, das Fähigkeiten in der Front-End- und Back-End-Entwicklung demonstriert.", "type": "personal" },
+                        { "date": "2020", "title": "Mobile Spieleentwicklung", "description": "Entwickelte ein mobiles Spiel für iOS- und Android-Plattformen mithilfe einer plattformübergreifenden Engine.", "type": "university" },
+                        { "date": "2019", "title": "Vorhersagemodell für maschinelles Lernen", "description": "Baute ein prädiktives Modell zur Vorhersage von Markttrends mit hoher Genauigkeit.", "type": "personal" },
+                        { "date": "2017", "title": "Open-Source-Beitrag", "description": "Trug zu einem beliebten Open-Source-Projekt bei, indem neue Funktionen hinzugefügt und Fehler behoben wurden.", "type": "university" },
+                        { "date": "2016", "title": "Persönliche Blog-Engine", "description": "Erstellte eine leichtgewichtige und hochgradig anpassbare Blog-Engine von Grund auf neu.", "type": "personal" }
+                    ]
+                }
