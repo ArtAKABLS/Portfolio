@@ -76,8 +76,10 @@
             
             let lastExpandedContent = null;
             let lastExpandedIcon = null;
-            
-            cconst translations = {
+
+            // This object holds the content for each language.
+            // In a real application with GitHub Pages, this would be fetched from separate JSON files.
+            const translations = {
                 en: {
                     "title": "Timeline",
                     "projects": [
@@ -109,7 +111,24 @@
                     ]
                 }
             };
-            
+
+            // This is the commented-out logic to load JSON files dynamically.
+            // In a real application, you would replace the hardcoded 'translations' object with this.
+            /*
+            const fetchTranslations = async (lang) => {
+                try {
+                    const response = await fetch(`./locales/${lang}.json`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${lang}.json`);
+                    }
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error("Failed to load language data:", error);
+                    return null;
+                }
+            };
+            */
             
             function renderTimeline(data) {
                 if (!data) return; 
@@ -206,10 +225,10 @@
                 loadingIndicator.classList.remove('hidden');
                 mainContent.classList.add('hidden');
 
-                const data = translations[lang];
+                // Add a small delay to simulate network latency
+                await new Promise(resolve => setTimeout(resolve, 2000));
 
-                // Simulate a network fetch delay
-                await new Promise(resolve => setTimeout(resolve, 500));
+                const data = translations[lang];
                 
                 if (data) {
                     renderTimeline(data);
