@@ -203,7 +203,6 @@
 
             const timelineContainer = document.querySelector('.timeline-container');
             const mainTitle = document.getElementById('main-title');
-            const langButtons = document.querySelectorAll('.language-selector button');
 
             let currentLang = 'en';
 
@@ -211,7 +210,10 @@
                 timelineContainer.innerHTML = '<div class="timeline-line"></div>'; // Clear and re-add the line
                 const data = content[lang].projects;
                 mainTitle.textContent = content[lang].title;
-                let lastCardElement = null;
+                
+                // Track the currently expanded card
+                let lastExpandedContent = null;
+                let lastExpandedIcon = null;
 
                 data.forEach((project, index) => {
                     const isLeft = index % 2 === 0;
@@ -225,7 +227,6 @@
                     const contentCard = document.createElement('div');
                     contentCard.className = `w-1/2 p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700`;
                     
-                    // Main title container with a click event listener
                     const titleContainer = document.createElement('div');
                     titleContainer.className = "flex justify-between items-center cursor-pointer";
                     titleContainer.innerHTML = `
@@ -238,7 +239,6 @@
                         </svg>
                     `;
 
-                    // Expandable content area (description and visualization)
                     const expandableContent = document.createElement('div');
                     expandableContent.className = 'overflow-hidden transition-[max-height] duration-500 ease-in-out max-h-0';
                     expandableContent.innerHTML = `
@@ -248,18 +248,31 @@
                         </div>
                     `;
 
-                    // Add click event to the title to toggle content visibility
                     titleContainer.addEventListener('click', () => {
+                        // Collapse the previously expanded card, if it's not the same as the current one
+                        if (lastExpandedContent && lastExpandedContent !== expandableContent) {
+                            lastExpandedContent.style.maxHeight = '0px';
+                            lastExpandedIcon.style.transform = 'rotate(0deg)';
+                            lastExpandedContent.closest('.bg-gray-800').querySelector('.flex').classList.remove('expanded');
+                        }
+
+                        // Toggle the current card
                         const isExpanded = titleContainer.classList.toggle('expanded');
                         const svgIcon = titleContainer.querySelector('svg');
+
                         if (isExpanded) {
                             expandableContent.style.maxHeight = `${expandableContent.scrollHeight}px`;
                             svgIcon.style.transform = 'rotate(45deg)';
-                            // Smoothly scroll to the clicked item
                             itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            // Update the last expanded references
+                            lastExpandedContent = expandableContent;
+                            lastExpandedIcon = svgIcon;
                         } else {
                             expandableContent.style.maxHeight = '0px';
                             svgIcon.style.transform = 'rotate(0deg)';
+                            // Clear references if the current card is being collapsed
+                            lastExpandedContent = null;
+                            lastExpandedIcon = null;
                         }
                     });
 
@@ -269,21 +282,25 @@
                     itemContainer.appendChild(node);
                     itemContainer.appendChild(contentCard);
                     timelineContainer.appendChild(itemContainer);
-                    
-                    // Adjust node position relative to the cards
-                    const cardHeight = contentCard.offsetHeight;
-                    node.style.top = `${cardHeight / 2}px`;
 
-                    // Adjust item container position based on the node and date elements
-                    const totalHeight = Math.max(cardHeight);
-                    itemContainer.style.height = `${totalHeight}px`;
-
-                    // Ensure items are properly spaced
-                    if (index > 0) {
-                        const prevItem = timelineContainer.children[index];
-                        const prevHeight = prevItem.offsetHeight;
-                        itemContainer.style.marginTop = `${Math.max(12, totalHeight/2 - prevHeight/2)}px`;
-                    }
+                    // Dynamic Spacing Logic
+                    // Use setTimeout to wait for the DOM to update with the new element's height
+                    setTimeout(() => {
+                        const cardHeight = contentCard.offsetHeight;
+                        // Position the node vertically in the middle of its card
+                        node.style.top = `${cardHeight / 2}px`;
+                        
+                        // If not the first item, calculate margin based on previous item
+                        if (index > 0) {
+                            const prevItemContainer = timelineContainer.children[index];
+                            const prevCard = prevItemContainer.querySelector('.bg-gray-800');
+                            const prevCardHeight = prevCard.offsetHeight;
+                            const minSpacing = 40; // Minimum vertical distance in pixels
+                            const totalPrevHeight = prevCardHeight;
+                            const calculatedMargin = totalPrevHeight / 2 + minSpacing;
+                            itemContainer.style.marginTop = `${calculatedMargin}px`;
+                        }
+                    }, 0);
                 });
             }
 
@@ -292,11 +309,9 @@
                 renderTimeline(currentLang);
             }
 
-            // Event listeners for language buttons
             document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
             document.getElementById('lang-es').addEventListener('click', () => setLanguage('es'));
 
-            // Initial render
             setLanguage(currentLang);
         });
     </script>
