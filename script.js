@@ -1,9 +1,9 @@
-// Select all timeline nodes
+// Select all nodes
 const nodes = document.querySelectorAll('.timeline-node');
 
-nodes.forEach((node, index) => {
+nodes.forEach((node) => {
   node.addEventListener('click', () => {
-    const content = node.nextElementSibling;
+    const content = node.parentElement.querySelector('.timeline-content');
     content.classList.toggle('active');
   });
 });
