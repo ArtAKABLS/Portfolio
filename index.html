@@ -1,314 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects Portfolio</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom font for a clean look */
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        /* Hide sections by default, JavaScript will show them */
-        .content-section:not(.active) {
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Timeline</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 text-gray-900 min-h-screen flex">
-    <!-- Left Navigation Bar -->
-    <aside class="w-64 bg-gray-800 text-white flex flex-col p-6 shadow-lg">
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-indigo-400">Will Wartmann</h1>
-            <p class="text-sm text-gray-400 mt-1">Project Portfolio</p>
-        </div>
-        <nav class="flex-grow">
-            <ul class="space-y-4">
-                <li>
-                    <a href="#about" class="nav-link main-nav-link block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out">
-                        About Me
-                    </a>
-                </li>
-                <li>
-                    <!-- Projects Main Navigation Link -->
-                    <a href="#projects" class="nav-link main-nav-link block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out" id="projects-main-link">
-                        Projects
-                    </a>
-                    <!-- Nested Project Sub-Navigation -->
-                    <ul id="projects-sub-nav" class="ml-4 mt-2 space-y-2 hidden">
-                        <li>
-                            <a href="#project-one-detail" class="nav-link sub-nav-link block py-2 px-3 rounded-lg text-base hover:bg-gray-700 transition duration-200 ease-in-out">
-                                Project One Detail
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#project-two-detail" class="nav-link sub-nav-link block py-2 px-3 rounded-lg text-base hover:bg-gray-700 transition duration-200 ease-in-out">
-                                Project Two Detail
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#project-three-detail" class="nav-link sub-nav-link block py-2 px-3 rounded-lg text-base hover:bg-gray-700 transition duration-200 ease-in-out">
-                                Project Three Detail
-                            </a>
-                        </li>
-                        <!-- Add more sub-project links here as needed -->
-                    </ul>
-                </li>
-                <li>
-                    <a href="#skills" class="nav-link main-nav-link block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out">
-                        Skills
-                    </a>
-                </li>
-                <li>
-                    <a href="#contact" class="nav-link main-nav-link block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out">
-                        Contact
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/ArtAKABLS" target="_blank" class="block py-3 px-4 rounded-lg text-lg font-medium hover:bg-gray-700 transition duration-200 ease-in-out">
-                        GitHub Profile
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <div class="mt-8 text-center text-sm text-gray-400">
-            &copy; 2025 Will Wartmann
-        </div>
-    </aside>
+<body>
+  <h1>My Project Timeline</h1>
+  <div class="timeline">
+    
+    <div class="timeline-item">
+      <div class="timeline-node"></div>
+      <div class="timeline-content">
+        <h3>2022 – Arduino Smart Lamp</h3>
+        <p>Built a lamp with motion detection and adjustable brightness using Arduino + sensors.</p>
+      </div>
+    </div>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow p-8 overflow-y-auto">
-        <!-- About Me Section -->
-        <section id="about" class="content-section main-content-section active bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">About Me</h2>
-            <p class="text-lg text-gray-700 leading-relaxed">
-                Hello! I'm [Your Name], a passionate developer with a knack for creating engaging and functional web experiences. My journey in programming began with [mention something brief, e.g., a simple game, a coding course] and has since evolved into a continuous exploration of new technologies and problem-solving. I specialize in [mention your primary area, e.g., front-end development, full-stack, data science] and love bringing ideas to life through code.
-            </p>
-            <p class="text-lg text-gray-700 leading-relaxed mt-4">
-                Outside of coding, you can find me [mention a hobby or interest, e.g., hiking, reading, playing music]. I believe in lifelong learning and am always looking for new challenges and opportunities to grow. Feel free to explore my projects and connect with me!
-            </p>
-        </section>
+    <div class="timeline-item">
+      <div class="timeline-node"></div>
+      <div class="timeline-content">
+        <h3>2023 – Python Portfolio Analyzer</h3>
+        <p>Software tool that graphs project data and organizes outputs.</p>
+      </div>
+    </div>
 
+    <div class="timeline-item">
+      <div class="timeline-node"></div>
+      <div class="timeline-content">
+        <h3>2024 – Raspberry Pi Robot</h3>
+        <p>Created a small autonomous rover using a Raspberry Pi, camera module, and Python scripts.</p>
+      </div>
+    </div>
 
-        <!-- Individual Project Detail Sections -->
-        <section id="project-one-detail" class="content-section sub-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Project Title One: Detailed View</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                Welcome to the detailed page for Project Title One! This project involved [brief overview of the project's core, e.g., building a responsive e-commerce site, developing a machine learning model].
-            </p>
-            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Key Features:</h3>
-            <ul class="list-disc list-inside text-gray-700 text-lg space-y-2 mb-4">
-                <li>Feature 1: [Description of feature 1, e.g., User authentication and authorization]</li>
-                <li>Feature 2: [Description of feature 2, e.g., Real-time data updates using WebSockets]</li>
-                <li>Feature 3: [Description of feature 3, e.g., Integration with a third-party API for payments]</li>
-            </ul>
-            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Technologies Used:</h3>
-            <p class="text-lg text-gray-700 mb-4">
-                This project was built using: [List specific technologies, e.g., **React**, **Node.js (Express)**, **MongoDB**, **Tailwind CSS**].
-            </p>
-            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Challenges & Learnings:</h3>
-            <p class="text-lg text-gray-700 mb-4">
-                [Discuss a significant challenge you faced during development, how you approached solving it, and what you learned from the experience. For example: "A major challenge was optimizing database queries for large datasets, which I addressed by implementing indexing and denormalization strategies. This taught me the importance of database design for performance."]
-            </p>
-            <div class="flex flex-wrap gap-4 mt-6">
-                <a href="https://github.com/your-github-username/project-one-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                    View Code on GitHub
-                </a>
-                <!-- Add a live demo link if applicable -->
-                <a href="https://your-github-username.github.io/project-one-live-demo/" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                    Live Demo
-                </a>
-            </div>
-        </section>
-
-        <section id="project-two-detail" class="content-section sub-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Project Title Two: Detailed View</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                This is the detailed page for Project Title Two. Here you can elaborate on its functionalities, the design choices made, and any interesting aspects of its development.
-            </p>
-            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Project Goals:</h3>
-            <ul class="list-disc list-inside text-gray-700 text-lg space-y-2 mb-4">
-                <li>Goal 1: [Description of goal 1]</li>
-                <li>Goal 2: [Description of goal 2]</li>
-            </ul>
-            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Technical Stack:</h3>
-            <p class="text-lg text-gray-700 mb-4">
-                Technologies used include: [List technologies, e.g., **Python (Flask)**, **PostgreSQL**, **Vue.js**].
-            </p>
-            <div class="flex flex-wrap gap-4 mt-6">
-                <a href="https://github.com/your-github-username/project-two-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                    View Code on GitHub
-                </a>
-                <!-- Add a live demo link if applicable -->
-            </div>
-        </section>
-
-        <section id="project-three-detail" class="content-section sub-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Project Title Three: Detailed View</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                Dive deeper into Project Title Three. Explain the problem it solves, the features implemented, and your personal contributions.
-            </p>
-            <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Implementation Details:</h3>
-            <p class="text-lg text-gray-700 mb-4">
-                [Describe how you implemented certain features, e.g., "Used **D3.js** for interactive data visualizations," or "Implemented a **RESTful API** for data retrieval."]
-            </p>
-            <div class="flex flex-wrap gap-4 mt-6">
-                <a href="https://github.com/your-github-username/project-three-repo" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                    View Code on GitHub
-                </a>
-                <!-- Add a live demo link if applicable -->
-            </div>
-        </section>
-        <!-- Add more individual project detail sections here as needed -->
-
-        <!-- Skills Section -->
-        <section id="skills" class="content-section main-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">My Skills</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Programming Languages</h3>
-                    <ul class="list-disc list-inside text-gray-700 text-lg space-y-2">
-                        <li>Python</li>
-                        <li>C</li>
-                        <li>Java</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Frameworks & Libraries</h3>
-                    <ul class="list-disc list-inside text-gray-700 text-lg space-y-2">
-                        <li>React.js</li>
-                        <li>Node.js (Express)</li>
-                        <li>Tailwind CSS</li>
-                        <li>[Another Framework, e.g., Django, Flask]</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Tools & Databases</h3>
-                    <ul class="list-disc list-inside text-gray-700 text-lg space-y-2">
-                        <li>Git & GitHub</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-semibold text-indigo-700 mb-3">Concepts & Methodologies</h3>
-                    <ul class="list-disc list-inside text-gray-700 text-lg space-y-2">
-                        <li>Responsive Design</li>
-                        <li>RESTful APIs</li>
-                        <li>Agile Development</li>
-                        <li>[Another Concept, e.g., Cloud Computing]</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="content-section main-content-section bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Get in Touch</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                I'm always open to new opportunities, collaborations, and interesting discussions. Feel free to reach out!
-            </p>
-            <div class="flex flex-col space-y-4 max-w-md mx-auto">
-                <a href="mailto:wwartmann@googlemail.com" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105">
-                    Email Me
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainNavLinks = document.querySelectorAll('.main-nav-link');
-            const subNavLinks = document.querySelectorAll('.sub-nav-link');
-            const allContentSections = document.querySelectorAll('.content-section');
-            const projectsSubNav = document.getElementById('projects-sub-nav');
-            const projectsMainLink = document.getElementById('projects-main-link');
-
-            // Helper function to hide all content sections
-            function hideAllContent() {
-                allContentSections.forEach(section => {
-                    section.classList.remove('active');
-                    section.style.display = 'none';
-                });
-            }
-
-            // Helper function to deactivate all navigation links
-            function deactivateAllNavLinks() {
-                mainNavLinks.forEach(link => {
-                    link.classList.remove('active-link', 'bg-gray-700');
-                });
-                subNavLinks.forEach(link => {
-                    link.classList.remove('active-link', 'bg-gray-700');
-                });
-            }
-
-            // Function to show a specific section and manage navigation state
-            function showSection(targetId) {
-                hideAllContent();
-                deactivateAllNavLinks();
-
-                const targetSection = document.querySelector(targetId);
-                const activeNavLink = document.querySelector(`.nav-link[href="${targetId}"]`);
-
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                    targetSection.style.display = 'block'; // Show the section
-                }
-
-                if (activeNavLink) {
-                    activeNavLink.classList.add('active-link', 'bg-gray-700');
-                }
-
-                // Logic for Projects section and its sub-navigation visibility
-                if (targetId === '#projects' || targetSection.classList.contains('sub-content-section')) {
-                    // Ensure the main #projects link is highlighted
-                    projectsMainLink.classList.add('active-link', 'bg-gray-700');
-                    projectsSubNav.classList.remove('hidden'); // Show sub-navigation
-
-                    // If a sub-project detail section is active, ensure the main #projects overview is also displayed
-                    // This allows the overview to be seen when navigating directly to a sub-project detail.
-                    if (targetSection.classList.contains('sub-content-section')) {
-                        document.querySelector('#projects').style.display = 'block';
-                    }
-                } else {
-                    // For non-project main sections, hide the sub-navigation
-                    projectsSubNav.classList.add('hidden');
-                }
-            }
-
-            // Add click listeners for main navigation links
-            mainNavLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault(); // Prevent default anchor link behavior
-                    const targetId = link.getAttribute('href');
-                    showSection(targetId);
-
-                    // If the "Projects" main link is clicked, and there are sub-projects,
-                    // automatically show the first sub-project detail.
-                    if (targetId === '#projects' && subNavLinks.length > 0) {
-                        showSection(subNavLinks[0].getAttribute('href'));
-                    }
-                });
-            });
-
-            // Add click listeners for sub-navigation links
-            subNavLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault(); // Prevent default anchor link behavior
-                    const targetId = link.getAttribute('href');
-                    showSection(targetId);
-                });
-            });
-
-            // Handle initial load based on URL hash (if any)
-            const initialHash = window.location.hash;
-            if (initialHash && document.querySelector(initialHash)) {
-                showSection(initialHash);
-            } else {
-                // Default to showing the 'about' section and hide sub-nav on initial load
-                showSection('#about');
-            }
-        });
-    </script>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
