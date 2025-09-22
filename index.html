@@ -16,17 +16,15 @@
             overflow-x: hidden;
         }
 
-        /* Mobile-first: Timeline line and nodes are on the left */
         .timeline-container {
             position: relative;
             min-height: 100vh;
-            padding-left: 20px; /* Space for the line and nodes on mobile */
         }
 
         .timeline-line {
             position: absolute;
-            left: 10px; /* Align to the left on mobile */
-            transform: translateX(0%); /* No transform needed for left alignment */
+            left: 50%;
+            transform: translateX(-50%);
             width: 2px;
             background-color: #f0f0f0;
             top: 0;
@@ -39,8 +37,8 @@
             height: 1rem;
             border-radius: 9999px;
             position: absolute;
-            left: 10px; /* Align to the left on mobile */
-            transform: translateX(-50%); /* Half of its width to center on the line */
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 3;
             transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
@@ -60,75 +58,48 @@
             top: 0;
             z-index: 2;
             transition: height 0.5s ease-in-out;
-            left: 0; /* Align expanded line to the left of the card */
         }
 
-        .timeline-card { /* General style for cards */
-            border-left: 2px solid #333; /* Default for mobile: always has left border */
-            margin-left: 20px; /* Space from the timeline line */
-            padding-left: 1rem; /* Adjust padding for border */
+        /* Default (all screen sizes) styles for timeline items to mimic desktop */
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
         }
-        
-        /* Desktop styles (sm breakpoint and above) */
-        @media (min-width: 640px) {
-            .timeline-container {
-                padding-left: 0; /* Reset padding for desktop */
-            }
 
-            .timeline-line {
-                left: 50%; /* Center the line on desktop */
-                transform: translateX(-50%);
-            }
-
-            .timeline-node {
-                left: 50%; /* Center the nodes on desktop */
-                transform: translateX(-50%);
-            }
-
-            .timeline-item {
-                display: flex;
-                align-items: center;
-                width: 100%;
-                margin-top: 2rem;
-                margin-bottom: 2rem;
-                flex-direction: row; /* Default to row for desktop */
-            }
-
-            .timeline-item.sm\:flex-row-reverse {
-                flex-direction: row-reverse;
-            }
-
-            .timeline-card {
-                width: 50%; /* Take half width on desktop */
-                margin-left: 0; /* Reset margin */
-                padding-left: 1rem; /* Default padding */
-                border-right: none; /* Reset borders */
-                border-left: 2px solid #333; /* Default left border for cards on right side of line */
-            }
-            
-            /* Specific card borders for desktop */
-            .timeline-card.sm\:timeline-card-right {
-                border-left: 2px solid #333;
-                border-right: none; /* Ensure no right border */
-            }
-            .timeline-card.sm\:timeline-card-left {
-                border-right: 2px solid #333;
-                border-left: none; /* Ensure no left border */
-            }
-
-            .expanded-line {
-                /* On desktop, expanded lines are attached to the card border */
-                left: unset; /* Remove mobile left alignment */
-            }
-            .timeline-card.sm\:timeline-card-right .expanded-line {
-                left: 0; /* Attach to left border of right-aligned card */
-                right: unset;
-            }
-            .timeline-card.sm\:timeline-card-left .expanded-line {
-                right: 0; /* Attach to right border of left-aligned card */
-                left: unset;
-            }
+        .timeline-card-wrapper {
+            width: 50%; /* Each card takes half the width */
         }
+
+        /* Card styles for right side of the timeline */
+        .timeline-item.flex-row .timeline-card {
+            border-left: 2px solid #333;
+            padding-left: 1rem;
+            margin-left: calc(50% + 20px); /* Push it right, accounting for line and gap */
+            margin-right: 0;
+        }
+
+        /* Card styles for left side of the timeline */
+        .timeline-item.flex-row-reverse .timeline-card {
+            border-right: 2px solid #333;
+            padding-right: 1rem;
+            margin-right: calc(50% + 20px); /* Push it left, accounting for line and gap */
+            margin-left: 0;
+        }
+
+        /* Adjust expanded line positioning based on card side */
+        .timeline-item.flex-row .timeline-card .expanded-line {
+            left: 0;
+            right: unset;
+        }
+
+        .timeline-item.flex-row-reverse .timeline-card .expanded-line {
+            right: 0;
+            left: unset;
+        }
+
     </style>
 </head>
 <body class="antialiased min-h-screen">
@@ -247,22 +218,22 @@
                 lastExpandedLine = null;
 
                 data.projects.forEach((project, index) => {
-                    // isLeft now only controls desktop layout; mobile is always "right" of the line
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
-                    // On mobile, items are always 'row' for the node to be next to the card
-                    // On desktop (sm and up), we use sm:flex-row or sm:flex-row-reverse
-                    itemContainer.className = `relative timeline-item flex-row sm:my-8 ${isLeft ? 'sm:flex-row-reverse' : 'sm:flex-row'}`;
+                    // Always use flex-row or flex-row-reverse, no sm: prefix
+                    itemContainer.className = `relative timeline-item ${isLeft ? 'flex-row-reverse' : 'flex-row'}`;
 
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
                     node.setAttribute('aria-hidden', 'true');
                     
+                    const contentCardWrapper = document.createElement('div');
+                    contentCardWrapper.className = `timeline-card-wrapper`; // Wrapper for card positioning
+
                     const contentCard = document.createElement('div');
-                    // Always `timeline-card` (left border) for mobile.
-                    // On desktop, add specific classes for alternating borders.
-                    contentCard.className = `relative w-full sm:w-1/2 p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700 timeline-card ${isLeft ? 'sm:timeline-card-left' : 'sm:timeline-card-right'}`;
+                    // Remove desktop-specific classes and apply general 'timeline-card'
+                    contentCard.className = `relative w-full p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700 timeline-card`;
                     
                     const titleContainer = document.createElement('button');
                     titleContainer.className = "flex justify-between items-center w-full cursor-pointer";
@@ -290,8 +261,7 @@
                     
                     const expandedLine = document.createElement('div');
                     expandedLine.className = 'expanded-line';
-                    // The CSS now handles positioning of expandedLine for mobile (left: 0) and desktop (left:0 or right:0)
-                    // based on .timeline-card.sm\:timeline-card-right/.left
+                    // CSS now handles its left/right placement based on parent itemContainer's flex direction
                     
                     titleContainer.addEventListener('click', () => {
                         const svgIcon = titleContainer.querySelector('svg');
@@ -353,8 +323,9 @@
                     contentCard.appendChild(titleContainer);
                     contentCard.appendChild(expandableContent);
                     contentCard.appendChild(expandedLine);
+                    contentCardWrapper.appendChild(contentCard); // Put the card inside its wrapper
                     itemContainer.appendChild(node);
-                    itemContainer.appendChild(contentCard);
+                    itemContainer.appendChild(contentCardWrapper); // Add the wrapper to the item container
                     timelineContainer.appendChild(itemContainer);
 
                     // Position the node after it's in the DOM and rendered
@@ -363,14 +334,12 @@
                         const titleRect = titleContainer.getBoundingClientRect();
                         const timelineContainerRect = timelineContainer.getBoundingClientRect();
 
-                        // Calculate nodeTop relative to the timelineContainer for mobile (left-aligned)
-                        // This calculates the vertical center of the title button, adjusted by container's scroll position
+                        // Node Top calculation remains the same, relative to the timeline container
                         const nodeTop = (titleRect.top + titleRect.height / 2) - timelineContainerRect.top - (node.offsetHeight / 2);
                         node.style.top = `${nodeTop}px`;
 
                         // Re-calculate on resize for responsive node positioning
                         const handleResize = () => {
-                            const currentCardRect = contentCard.getBoundingClientRect();
                             const currentTitleRect = titleContainer.getBoundingClientRect();
                             const currentTimelineContainerRect = timelineContainer.getBoundingClientRect();
                             const newNodeTop = (currentTitleRect.top + currentTitleRect.height / 2) - currentTimelineContainerRect.top - (node.offsetHeight / 2);
