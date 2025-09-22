@@ -58,31 +58,41 @@
             top: 0;
             z-index: 2;
             transition: height 0.5s ease-in-out;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .timeline-card-right {
-            border-left: 2px solid #333;
-        }
-        .timeline-card-left {
-            border-right: 2px solid #333;
-        }
-        
-        /* Desktop-first approach for improved layout */
+        /* Enforcing the desktop layout on all screen sizes */
         .timeline-item {
             display: flex;
             align-items: center;
             width: 100%;
             margin-top: 2rem;
             margin-bottom: 2rem;
-            flex-direction: row; /* Default to row for desktop */
+            flex-direction: row; 
         }
 
-        .timeline-item.sm\:flex-row-reverse {
+        .timeline-item-reverse {
             flex-direction: row-reverse;
         }
-
-    
-
+        
+        /* Consistent card styling for all devices */
+        .timeline-card {
+            border-left: 2px solid #333;
+            border-right: none;
+            width: 50%;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #1a1a1a;
+            position: relative;
+        }
+        
+        .timeline-item-reverse .timeline-card {
+            border-right: 2px solid #333;
+            border-left: none;
+        }
+        
     </style>
 </head>
 <body class="antialiased min-h-screen">
@@ -98,7 +108,7 @@
         Loading...
     </div>
 
-    <div id="main-content" class="container mx-auto py-20 px-4 sm:px-6 lg:px-8 hidden">
+    <div id="main-content" class="container mx-auto py-20 px-4 hidden">
         <h1 id="main-title" class="text-4xl sm:text-5xl lg:text-6xl font-bold text-center mb-16 sm:mb-24"></h1>
 
         <div class="relative timeline-container">
@@ -204,14 +214,14 @@
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
-                    itemContainer.className = `relative timeline-item sm:my-8 ${isLeft ? 'sm:flex-row-reverse' : 'sm:flex-row'}`;
+                    itemContainer.className = `relative timeline-item ${isLeft ? 'timeline-item-reverse' : ''}`;
 
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
                     node.setAttribute('aria-hidden', 'true');
                     
                     const contentCard = document.createElement('div');
-                    contentCard.className = `relative w-full sm:w-1/2 p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700 ${isLeft ? 'sm:timeline-card-left' : 'sm:timeline-card-right'}`;
+                    contentCard.className = `timeline-card relative`;
                     
                     const titleContainer = document.createElement('button');
                     titleContainer.className = "flex justify-between items-center w-full cursor-pointer";
@@ -239,12 +249,7 @@
                     
                     const expandedLine = document.createElement('div');
                     expandedLine.className = 'expanded-line';
-                    if (isLeft) {
-                        expandedLine.style.right = '0';
-                    } else {
-                        expandedLine.style.left = '0';
-                    }
-
+                    
                     titleContainer.addEventListener('click', () => {
                         const svgIcon = titleContainer.querySelector('svg');
                         const isExpanded = titleContainer.classList.contains('expanded');
