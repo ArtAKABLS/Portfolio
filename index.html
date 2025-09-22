@@ -83,56 +83,49 @@
 
         /* Mobile-only styles */
        @media (max-width: 640px) {
-            /* Main container adjustment to create space for the timeline line */
             .timeline-container {
-                padding-left: 2.5rem; /* space for line + nodes */
-                padding-right: 1rem;
+            padding-left: 2.5rem; /* space for line + nodes */
+            padding-right: 1rem;
             }
-        
-            /* Position the vertical timeline line */
             .timeline-line {
-                left: 1rem;
-                transform: none;
+            left: 1rem;
+            transform: none;
             }
-        
-            /* Position the timeline nodes directly on the line */
-            .timeline-node {
-                left: 1rem;
-                transform: translateX(-50%);
-            }
-        
-            /* Stack items vertically and align them to the start */
+            /* Fix: Ensure the dot stays on the line */
             .timeline-item {
-                flex-direction: row;
-                align-items: flex-start;
-                margin-left: 0;
-                margin-bottom: 2rem; /* Add some space between items */
+            position: relative;
+            flex-direction: row;
+            align-items: flex-start;
+            margin-left: 0;
+            margin-bottom: 2rem;
             }
             
-            /* Position the node correctly within its item container */
-            .timeline-item > .timeline-node {
-                left: 1rem;
-                transform: translateX(-50%);
+            
+            .timeline-node {
+            position: absolute;
+            top: 1rem; /* aligns with start of card */
+            left: 1rem; /* align with the vertical line */
+            transform: translateX(-50%);
+            margin: 0;
+            z-index: 10;
             }
-        
-            /* Adjust the card to be full width and correctly aligned */
+            
+            
             .timeline-card-left,
             .timeline-card-right {
-                width: 100%;
-                margin-left: 1.5rem; /* Pushes card away from the timeline line */
-                border-left: 2px solid #333;
-                border-right: none;
-                position: relative;
+            width: 100%;
+            margin-left: 2rem; /* push card away from the line */
+            border-left: 2px solid #333;
+            border-right: none;
+            position: relative;
             }
-        
-            /* Adjust the expanded line to correctly appear on mobile */
             .expanded-line {
-                left: -2px !important;
-                right: auto !important;
-                top: 0 !important;
-                height: 0 !important;
+            left: -2px !important;
+            right: auto !important;
+            top: 0 !important;
+            height: 0 !important;
             }
-    }
+        }
 
     </style>
 </head>
