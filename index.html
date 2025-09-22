@@ -59,6 +59,17 @@
             z-index: 2;
             transition: height 0.5s ease-in-out;
         }
+        
+        /* Position the expanded line on the right side of the card for normal items */
+        .timeline-item .timeline-card .expanded-line {
+            left: -2px;
+        }
+        
+        /* Position the expanded line on the left side of the card for reversed items */
+        .timeline-item-reverse .timeline-card .expanded-line {
+            right: -2px;
+            left: auto; /* Override the default left property */
+        }
 
         /* Enforcing the desktop layout on all screen sizes */
         .timeline-item {
@@ -212,7 +223,7 @@
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
-                    itemContainer.className = `relative timeline-item ${isLeft ? 'timeline-item-reverse' : ''}`;
+                    itemContainer.className = `relative timeline-item ${isLeft ? '' : 'timeline-item-reverse'}`;
 
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
@@ -247,7 +258,14 @@
                     
                     const expandedLine = document.createElement('div');
                     expandedLine.className = 'expanded-line';
-                    
+
+                    contentCard.appendChild(titleContainer);
+                    contentCard.appendChild(expandableContent);
+                    contentCard.appendChild(expandedLine);
+                    itemContainer.appendChild(node);
+                    itemContainer.appendChild(contentCard);
+                    timelineContainer.appendChild(itemContainer);
+
                     titleContainer.addEventListener('click', () => {
                         const svgIcon = titleContainer.querySelector('svg');
                         const isExpanded = titleContainer.classList.contains('expanded');
@@ -274,8 +292,10 @@
                             svgIcon.style.transform = 'rotate(45deg)';
                             itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             
+                            // The line's height is now calculated to cover the title and date,
+                            // plus a few extra pixels for visual effect.
                             lineToAnimate.style.backgroundColor = project.type === 'university' ? '#4CAF50' : '#2196F3';
-                            lineToAnimate.style.height = `${titleContainer.offsetHeight + 16}px`;
+                            lineToAnimate.style.height = `${titleContainer.offsetHeight + 12}px`;
                             
                             lastExpandedContent = contentToExpand;
                             lastExpandedIcon = svgIcon;
@@ -304,13 +324,6 @@
                             titleContainer.setAttribute('aria-expanded', 'false');
                         }
                     });
-
-                    contentCard.appendChild(titleContainer);
-                    contentCard.appendChild(expandableContent);
-                    contentCard.appendChild(expandedLine);
-                    itemContainer.appendChild(node);
-                    itemContainer.appendChild(contentCard);
-                    timelineContainer.appendChild(itemContainer);
 
                     setTimeout(() => {
                         const nodeTop = contentCard.offsetTop + (titleContainer.offsetTop) + (titleContainer.offsetHeight / 2) - (node.offsetHeight / 2);
