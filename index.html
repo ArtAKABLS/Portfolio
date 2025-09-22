@@ -15,7 +15,11 @@
             color: #f0f0f0;
         }
 
-        /* The timeline line is now positioned relative to its parent container */
+        /* The timeline container and line now span the full viewport height */
+        .timeline-container {
+            min-height: 100vh;
+        }
+
         .timeline-line {
             position: absolute;
             left: 50%;
@@ -82,7 +86,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const timelineContainer = document.querySelector('.timeline-container');
-            const timelineLine = document.getElementById('timeline-line');
             const mainTitle = document.getElementById('main-title');
             const loadingIndicator = document.getElementById('loading-indicator');
             const mainContent = document.getElementById('main-content');
@@ -141,15 +144,6 @@
                 }
             };
 
-            // New function to update the timeline line's height
-            function updateTimelineLineHeight() {
-                // Wait for the next animation frame to ensure the DOM is updated
-                requestAnimationFrame(() => {
-                    const totalHeight = timelineContainer.scrollHeight;
-                    timelineLine.style.height = `${totalHeight}px`;
-                });
-            }
-            
             function renderTimeline(data) {
                 if (!data) return;
 
@@ -222,9 +216,6 @@
                             lastExpandedIcon = null;
                             titleContainer.classList.remove('expanded');
                         }
-                        
-                        // Update the timeline line's height after every click
-                        updateTimelineLineHeight();
                     });
 
                     contentCard.appendChild(titleContainer);
@@ -241,9 +232,6 @@
                         // the node aligns perfectly with the center of the plus icon.
                         const nodeTop = contentCard.offsetTop + (titleContainer.offsetTop) + (titleContainer.offsetHeight / 2) - (node.offsetHeight / 2);
                         node.style.top = `${nodeTop}px`;
-                        
-                        // FIX: Adjust the height of the vertical line to match the total height of all timeline items.
-                        updateTimelineLineHeight();
                     }, 0);
                 });
             }
