@@ -48,6 +48,63 @@
         .personal-project {
             background-color: #2196F3;
         }
+        
+        /* Mobile-first: A single column layout for the timeline */
+        .timeline-item {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timeline-item > .timeline-node {
+            left: 0.5rem; /* Position the node on the left side */
+            transform: none;
+        }
+
+        .timeline-item > .content-card {
+            width: 100%; /* Make card full width */
+            padding-left: 2rem; /* Add padding for the line */
+        }
+        
+        /* Adjustments for the line and nodes on mobile */
+        .timeline-container .timeline-line {
+            left: 0.5rem;
+            transform: none;
+        }
+        
+        /* Desktop: Revert to two-column layout */
+        @media (min-width: 640px) {
+            .timeline-item {
+                flex-direction: row;
+            }
+
+            .timeline-item.right {
+                flex-direction: row-reverse;
+            }
+
+            .timeline-item > .timeline-node {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-item.right > .content-card {
+                padding-left: 1rem;
+            }
+            
+            .timeline-item.left > .content-card {
+                padding-right: 1rem;
+            }
+            
+            .timeline-item > .content-card {
+                width: 50%;
+                padding-left: 1rem;
+            }
+            
+            /* Adjustments for the line on desktop */
+            .timeline-container .timeline-line {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen">
@@ -176,13 +233,19 @@
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
-                    itemContainer.className = `flex items-center w-full my-4 sm:my-8 relative timeline-item ${isLeft ? 'flex-row-reverse' : 'flex-row'}`;
-
+                    
+                    // Add conditional classes for mobile vs. desktop layout
+                    itemContainer.className = `flex items-center w-full my-4 sm:my-8 relative timeline-item`;
+                    if (isLeft) {
+                        itemContainer.classList.add('sm:flex-row-reverse');
+                    }
+                    
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
                     
                     const contentCard = document.createElement('div');
-                    contentCard.className = `w-1/2 p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700`;
+                    // Use a full-width card for mobile, and a half-width card for larger screens
+                    contentCard.className = `p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700 w-full sm:w-1/2 content-card`;
                     
                     const titleContainer = document.createElement('div');
                     titleContainer.className = "flex justify-between items-center cursor-pointer";
