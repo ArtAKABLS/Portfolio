@@ -346,21 +346,17 @@
                 });
             }
 
-            async function setLanguage(lang) {
-                loadingIndicator.classList.remove('hidden');
-                mainContent.classList.add('hidden');
-                await new Promise(resolve => setTimeout(resolve, 200));
-
+            function setLanguage(lang) {
+                // No loading indicator for language switching - it's instant
                 const data = translations[lang];
                 
                 if (data) {
                     renderTimeline(data);
                 } else {
-                    console.error("Using default language due to failed fetch.");
+                    console.error("Language data not found for:", lang);
+                    // Fallback to English
+                    renderTimeline(translations.en);
                 }
-                
-                loadingIndicator.classList.add('hidden');
-                mainContent.classList.remove('hidden');
             }
             
             document.getElementById('language-selector').addEventListener('change', (event) => {
@@ -373,6 +369,9 @@
                 setLanguage(currentLang);
             });
 
+            // Initial setup - hide loading and show content
+            loadingIndicator.classList.add('hidden');
+            mainContent.classList.remove('hidden');
             setLanguage('en');
         });
     </script>
