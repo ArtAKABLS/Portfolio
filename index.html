@@ -67,7 +67,21 @@
             border-right: 2px solid #333;
         }
         
-        /* Mobile-first approach for improved layout */
+        /* Desktop-first approach for improved layout */
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            flex-direction: row; /* Default to row for desktop */
+        }
+
+        .timeline-item.sm\:flex-row-reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* Mobile-only styles */
        @media (max-width: 640px) {
             .timeline-container {
                 padding-left: 2.5rem; /* space for line + nodes */
@@ -87,11 +101,9 @@
                 flex-direction: column;
                 align-items: flex-start;
                 margin-left: 0;
-                width: 100%; /* Important: Ensures items use full width */
             }
             
             .timeline-item > .timeline-node {
-                /* On mobile, node is always left-aligned */
                 left: 1rem;
                 transform: translateX(-50%);
             }
@@ -102,13 +114,14 @@
                 margin-left: 2rem;
                 border-left: 2px solid #333;
                 border-right: none;
+                position: relative;
             }
         
             .expanded-line {
                 left: -2px !important;
                 right: auto !important;
                 top: 0 !important;
-                height: 100%; /* ensures it grows properly */
+                height: 0 !important;
             }
     }
 
@@ -233,7 +246,7 @@
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
-                    itemContainer.className = `relative timeline-item flex items-center w-full my-4 sm:my-8 ${isLeft ? 'sm:flex-row-reverse' : 'sm:flex-row'} flex-row`;
+                    itemContainer.className = `relative timeline-item sm:my-8 ${isLeft ? 'sm:flex-row-reverse' : 'sm:flex-row'}`;
 
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
@@ -272,13 +285,6 @@
                         expandedLine.style.right = '0';
                     } else {
                         expandedLine.style.left = '0';
-                    }
-
-                    // Mobile-specific adjustments for the expanded line
-                    const isMobile = window.matchMedia('(max-width: 640px)').matches;
-                    if (isMobile) {
-                        expandedLine.style.left = '-2px';
-                        expandedLine.style.right = 'auto';
                     }
 
                     titleContainer.addEventListener('click', () => {
