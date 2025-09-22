@@ -70,17 +70,22 @@
             right: -2px;
             left: auto; /* Override the default left property */
         }
-        
-        /* Default mobile-first layout (all cards on the right) */
+
+        /* Enforcing the desktop layout on all screen sizes */
         .timeline-item {
             display: flex;
             align-items: center;
             width: 100%;
             margin-top: 2rem;
             margin-bottom: 2rem;
-            flex-direction: row;
+            flex-direction: row; 
         }
 
+        .timeline-item-reverse {
+            flex-direction: row-reverse;
+        }
+        
+        /* Consistent card styling for all devices */
         .timeline-card {
             border-left: 2px solid #333;
             border-right: none;
@@ -92,16 +97,9 @@
             position: relative;
         }
         
-        /* Desktop layout (cards alternate left and right) */
-        @media (min-width: 768px) {
-            .timeline-item-reverse {
-                flex-direction: row-reverse;
-            }
-
-            .timeline-item-reverse .timeline-card {
-                border-right: 2px solid #333;
-                border-left: none;
-            }
+        .timeline-item-reverse .timeline-card {
+            border-right: 2px solid #333;
+            border-left: none;
         }
         
     </style>
@@ -222,7 +220,7 @@
                 lastExpandedLine = null;
 
                 data.projects.forEach((project, index) => {
-                    const isLeft = index % 2 === 1;
+                    const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
                     itemContainer.className = `relative timeline-item ${isLeft ? '' : 'timeline-item-reverse'}`;
