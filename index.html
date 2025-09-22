@@ -68,10 +68,10 @@
             border-right: 2px solid #333;
         }
         
+        /* Mobile-first approach for improved layout */
         @media (max-width: 640px) {
             .timeline-container {
-                padding-left: 2rem;
-                padding-right: 2rem;
+                padding: 0;
             }
             .timeline-line {
                 left: 1rem;
@@ -81,13 +81,35 @@
                 left: 1rem;
                 transform: translateX(-50%);
             }
-            .timeline-card-left, .timeline-card-right {
-                width: 100%;
-                margin-left: 2rem;
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+                position: relative;
             }
-            .timeline-card-left {
-                 border-right: none;
-                 border-left: 2px solid #333;
+            .timeline-card-left, .timeline-card-right {
+                width: calc(100% - 3rem);
+                margin: 0;
+                left: 2rem;
+                border-left: 2px solid #333;
+                border-right: none;
+            }
+            .expanded-line {
+                left: -2px !important;
+                right: auto !important;
+                top: 0 !important;
+                height: 100%; /* Default height for mobile, will be animated */
+            }
+            .timeline-node {
+                left: 1rem;
+                transform: translateX(-50%);
+                z-index: 4;
+            }
+            .timeline-card-right, .timeline-card-left {
+                width: calc(100% - 3rem);
+                margin: 0;
+                left: 2rem;
+                border-right: none;
+                border-left: 2px solid #333;
             }
         }
     </style>
@@ -252,6 +274,12 @@
                         expandedLine.style.left = '0';
                     }
 
+                    // Mobile-specific adjustments for the expanded line
+                    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+                    if (isMobile) {
+                        expandedLine.style.left = '-2px';
+                        expandedLine.style.right = 'auto';
+                    }
 
                     titleContainer.addEventListener('click', () => {
                         const svgIcon = titleContainer.querySelector('svg');
@@ -280,8 +308,8 @@
                             itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             
                             lineToAnimate.style.backgroundColor = project.type === 'university' ? '#4CAF50' : '#2196F3';
-                            lineToAnimate.style.height = '100%';
-
+                            lineToAnimate.style.height = `${contentToExpand.scrollHeight + titleContainer.offsetHeight}px`; // Adjust height based on content
+                            
                             lastExpandedContent = contentToExpand;
                             lastExpandedIcon = svgIcon;
                             lastExpandedNode = node;
