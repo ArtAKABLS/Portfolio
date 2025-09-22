@@ -74,15 +74,15 @@
         </div>
     </div>
     
-    <!-- Legend for color coding -->
+    <!-- Legend for color coding - text now handled by JavaScript -->
     <div class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-gray-900 bg-opacity-70 backdrop-blur-sm shadow-lg rounded-t-lg flex justify-center space-x-8 text-white">
         <div class="flex items-center space-x-2">
             <div class="w-4 h-4 rounded-full bg-[#4CAF50]"></div>
-            <span>University Project</span>
+            <span id="university-legend-label"></span>
         </div>
         <div class="flex items-center space-x-2">
             <div class="w-4 h-4 rounded-full bg-[#2196F3]"></div>
-            <span>Personal Project</span>
+            <span id="personal-legend-label"></span>
         </div>
     </div>
 
@@ -101,6 +101,10 @@
             const translations = {
                 en: {
                     "title": "Timeline",
+                    "legend": {
+                        "university": "University Project",
+                        "personal": "Personal Project"
+                    },
                     "projects": [
                         { "date": "November 15, 2018", "title": "Squareflair Today", "description": "We design and build from scratch. When we say 100% custom we mean it—and we build all sites on the Squarespace Developer platform.", "type": "university" },
                         { "date": "2009", "title": "Squareflair was Born", "description": "We can be all things to Squarespace users!", "type": "personal" },
@@ -116,6 +120,10 @@
                 },
                 de: {
                     "title": "Zeitleiste",
+                    "legend": {
+                        "university": "Universitätsprojekt",
+                        "personal": "Persönliches Projekt"
+                    },
                     "projects": [
                         { "date": "15. November 2018", "title": "Squareflair Heute", "description": "Wir entwerfen und bauen von Grund auf neu. Wenn wir sagen 100% maßgeschneidert, meinen wir das auch so – und wir bauen alle Websites auf der Squarespace Entwicklerplattform.", "type": "university" },
                         { "date": "2009", "title": "Squareflair wurde geboren", "description": "Wir können alles für Squarespace-Benutzer sein!", "type": "personal" },
@@ -153,6 +161,10 @@
                 // Clear existing timeline items, but keep the timeline line
                 timelineContainer.querySelectorAll('.timeline-item').forEach(el => el.remove());
                 mainTitle.textContent = data.title;
+                
+                // Set the legend labels based on the selected language
+                universityLegendLabel.textContent = data.legend.university;
+                personalLegendLabel.textContent = data.legend.personal;
                 
                 lastExpandedContent = null;
                 lastExpandedIcon = null;
