@@ -220,7 +220,7 @@
                 lastExpandedLine = null;
 
                 data.projects.forEach((project, index) => {
-                    const isLeft = index % 2 === 0;
+                    const isLeft = index % 2 === 1;
 
                     const itemContainer = document.createElement('div');
                     itemContainer.className = `relative timeline-item ${isLeft ? '' : 'timeline-item-reverse'}`;
