@@ -66,6 +66,18 @@
 
         <div class="h-[50vh]"></div>
     </div>
+    
+    <!-- Legend for color coding -->
+    <div class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-gray-900 bg-opacity-70 backdrop-blur-sm shadow-lg rounded-t-lg flex justify-center space-x-8 text-white">
+        <div class="flex items-center space-x-2">
+            <div class="w-4 h-4 rounded-full bg-[#4CAF50]"></div>
+            <span>University Project</span>
+        </div>
+        <div class="flex items-center space-x-2">
+            <div class="w-4 h-4 rounded-full bg-[#2196F3]"></div>
+            <span>Personal Project</span>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -77,6 +89,8 @@
             let lastExpandedContent = null;
             let lastExpandedIcon = null;
 
+            // This object holds the content for each language.
+            // In a real application with GitHub Pages, this would be fetched from separate JSON files.
             const translations = {
                 en: {
                     "title": "Timeline",
@@ -109,7 +123,22 @@
                     ]
                 }
             };
-            
+
+            // This is the correct logic to load JSON files dynamically.
+            // This is what you would use on a live server like GitHub Pages.
+            const fetchTranslations = async (lang) => {
+                try {
+                    const response = await fetch(`./locales/${lang}.json`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${lang}.json`);
+                    }
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error("Failed to load language data:", error);
+                    return null;
+                }
+            };
             
             function renderTimeline(data) {
                 if (!data) return; 
@@ -207,7 +236,7 @@
                 mainContent.classList.add('hidden');
 
                 // Add a small delay to simulate network latency
-                await new Promise(resolve => setTimeout(resolve, 500));
+                await new Promise(resolve => setTimeout(resolve, 2000));
 
                 const data = translations[lang];
                 
