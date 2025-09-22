@@ -52,8 +52,9 @@
 </head>
 <body class="antialiased min-h-screen">
 
+    <!-- The language selector is now a dropdown menu -->
     <div class="fixed top-5 right-5 z-50">
-        <select id="language-selector" class="px-3 py-1 bg-gray-800 text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-600 transition-all cursor-pointer hover:bg-gray-700">
+        <select id="language-selector" class="px-5 py-3 bg-gray-800 text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-600 transition-all cursor-pointer hover:bg-gray-700">
             <option value="en">EN</option>
             <option value="de">DE</option>
         </select>
@@ -92,6 +93,8 @@
             const mainTitle = document.getElementById('main-title');
             const loadingIndicator = document.getElementById('loading-indicator');
             const mainContent = document.getElementById('main-content');
+            const universityLegendLabel = document.getElementById('university-legend-label');
+            const personalLegendLabel = document.getElementById('personal-legend-label');
             
             let lastExpandedContent = null;
             let lastExpandedIcon = null;
@@ -271,9 +274,10 @@
                 loadingIndicator.classList.add('hidden');
                 mainContent.classList.remove('hidden');
             }
-
+            
+            // This is the updated event listener for the dropdown menu.
             document.getElementById('language-selector').addEventListener('change', (event) => {
-            setLanguage(event.target.value);
+                setLanguage(event.target.value);
             });
 
             // Load the default language on initial page load
