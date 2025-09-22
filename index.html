@@ -70,22 +70,17 @@
             right: -2px;
             left: auto; /* Override the default left property */
         }
-
-        /* Enforcing the desktop layout on all screen sizes */
+        
+        /* Default mobile-first layout (all cards on the right) */
         .timeline-item {
             display: flex;
             align-items: center;
             width: 100%;
             margin-top: 2rem;
             margin-bottom: 2rem;
-            flex-direction: row; 
+            flex-direction: row;
         }
 
-        .timeline-item-reverse {
-            flex-direction: row-reverse;
-        }
-        
-        /* Consistent card styling for all devices */
         .timeline-card {
             border-left: 2px solid #333;
             border-right: none;
@@ -97,9 +92,16 @@
             position: relative;
         }
         
-        .timeline-item-reverse .timeline-card {
-            border-right: 2px solid #333;
-            border-left: none;
+        /* Desktop layout (cards alternate left and right) */
+        @media (min-width: 768px) {
+            .timeline-item-reverse {
+                flex-direction: row-reverse;
+            }
+
+            .timeline-item-reverse .timeline-card {
+                border-right: 2px solid #333;
+                border-left: none;
+            }
         }
         
     </style>
