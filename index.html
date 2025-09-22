@@ -15,6 +15,7 @@
             color: #f0f0f0;
         }
 
+        /* The timeline line is now positioned relative to its parent container */
         .timeline-line {
             position: absolute;
             left: 50%;
@@ -60,11 +61,10 @@
     <div id="main-content" class="container mx-auto py-20 px-4 sm:px-6 lg:px-8 hidden">
         <h1 id="main-title" class="text-4xl sm:text-5xl lg:text-6xl font-bold text-center mb-16 sm:mb-24"></h1>
 
+        <!-- The timeline container will now have its height set dynamically -->
         <div class="relative timeline-container">
-            <div class="timeline-line"></div>
+            <div id="timeline-line" class="timeline-line"></div>
         </div>
-
-        <div class="h-[50vh]"></div>
     </div>
     
     <!-- Legend for color coding -->
@@ -82,6 +82,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const timelineContainer = document.querySelector('.timeline-container');
+            const timelineLine = document.getElementById('timeline-line');
             const mainTitle = document.getElementById('main-title');
             const loadingIndicator = document.getElementById('loading-indicator');
             const mainContent = document.getElementById('main-content');
@@ -141,9 +142,10 @@
             };
             
             function renderTimeline(data) {
-                if (!data) return; 
+                if (!data) return;
 
-                timelineContainer.innerHTML = '<div class="timeline-line"></div>';
+                // Clear existing timeline items, but keep the timeline line
+                timelineContainer.querySelectorAll('.timeline-item').forEach(el => el.remove());
                 mainTitle.textContent = data.title;
                 
                 lastExpandedContent = null;
@@ -153,7 +155,7 @@
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
-                    itemContainer.className = `flex items-center w-full my-4 sm:my-8 relative ${isLeft ? 'flex-row-reverse' : 'flex-row'}`;
+                    itemContainer.className = `flex items-center w-full my-4 sm:my-8 relative timeline-item ${isLeft ? 'flex-row-reverse' : 'flex-row'}`;
 
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
@@ -183,26 +185,35 @@
                     `;
 
                     titleContainer.addEventListener('click', () => {
-                        if (lastExpandedContent && lastExpandedContent !== expandableContent) {
+                        const svgIcon = titleContainer.querySelector('svg');
+                        const isExpanded = titleContainer.classList.contains('expanded');
+                        const cardContainer = contentCard;
+                        const contentToExpand = expandableContent;
+
+                        if (lastExpandedContent && lastExpandedContent !== contentToExpand) {
                             lastExpandedContent.style.maxHeight = '0px';
                             lastExpandedIcon.style.transform = 'rotate(0deg)';
-                            lastExpandedContent.closest('.bg-gray-800').querySelector('.flex').classList.remove('expanded');
+                            // Using a direct reference for better reliability
+                            const prevTitleContainer = lastExpandedContent.previousElementSibling;
+                            if (prevTitleContainer) {
+                                prevTitleContainer.classList.remove('expanded');
+                            }
                         }
-
-                        const isExpanded = titleContainer.classList.toggle('expanded');
-                        const svgIcon = titleContainer.querySelector('svg');
-
-                        if (isExpanded) {
-                            expandableContent.style.maxHeight = `${expandableContent.scrollHeight}px`;
+                        
+                        // Toggle the expanded state
+                        if (!isExpanded) {
+                            contentToExpand.style.maxHeight = `${contentToExpand.scrollHeight}px`;
                             svgIcon.style.transform = 'rotate(45deg)';
                             itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            lastExpandedContent = expandableContent;
+                            lastExpandedContent = contentToExpand;
                             lastExpandedIcon = svgIcon;
+                            titleContainer.classList.add('expanded');
                         } else {
-                            expandableContent.style.maxHeight = '0px';
+                            contentToExpand.style.maxHeight = '0px';
                             svgIcon.style.transform = 'rotate(0deg)';
                             lastExpandedContent = null;
                             lastExpandedIcon = null;
+                            titleContainer.classList.remove('expanded');
                         }
                     });
 
@@ -213,18 +224,19 @@
                     itemContainer.appendChild(contentCard);
                     timelineContainer.appendChild(itemContainer);
 
+                    // Defer position calculation until after the elements are rendered
                     setTimeout(() => {
-                        const cardHeight = contentCard.offsetHeight;
-                        node.style.top = `${cardHeight / 2}px`;
+                        // FIX: Calculate the node's top position based on the offset of its parent card
+                        // and the offset of the title container within the card. This ensures
+                        // the node aligns perfectly with the center of the plus icon.
+                        const nodeTop = contentCard.offsetTop + (titleContainer.offsetTop) + (titleContainer.offsetHeight / 2) - (node.offsetHeight / 2);
+                        node.style.top = `${nodeTop}px`;
                         
-                        if (index > 0) {
-                            const prevItemContainer = timelineContainer.children[index];
-                            const prevCard = prevItemContainer.querySelector('.bg-gray-800');
-                            const prevCardHeight = prevCard.offsetHeight;
-                            const minSpacing = 40;
-                            const totalPrevHeight = prevCardHeight;
-                            const calculatedMargin = totalPrevHeight / 2 + minSpacing;
-                            itemContainer.style.marginTop = `${calculatedMargin}px`;
+                        // Adjust the height of the vertical line to match the content
+                        const lastItem = timelineContainer.lastElementChild;
+                        if (lastItem) {
+                            const lastItemOffset = lastItem.offsetTop + lastItem.offsetHeight / 2;
+                            timelineLine.style.height = `${lastItemOffset}px`;
                         }
                     }, 0);
                 });
