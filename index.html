@@ -19,12 +19,12 @@
         .timeline-container {
             position: relative;
             min-height: 100vh;
+            padding: 0 1rem;
         }
 
         .timeline-line {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 10%;
             width: 2px;
             background-color: #f0f0f0;
             top: 0;
@@ -37,7 +37,7 @@
             height: 1rem;
             border-radius: 9999px;
             position: absolute;
-            left: 50%;
+            left: 10%;
             transform: translateX(-50%);
             z-index: 3;
             transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
@@ -60,66 +60,48 @@
             transition: height 0.5s ease-in-out;
         }
         
-        /* Position the expanded line on the right side of the card for normal items */
-        .timeline-item .timeline-card .expanded-line {
-            left: -2px;
-        }
-        
-        /* Position the expanded line on the left side of the card for reversed items */
-        .timeline-item-reverse .timeline-card .expanded-line {
-            right: -2px;
-            left: auto; /* Override the default left property */
-        }
-
-        /* Mobile-first approach */
+        /* Mobile layout */
         .timeline-item {
             display: flex;
-            align-items: center;
             width: 100%;
             margin-top: 2rem;
             margin-bottom: 2rem;
-            flex-direction: column;
             position: relative;
         }
-
-        .timeline-item-reverse {
-            flex-direction: column;
-        }
         
-        /* Mobile card styling */
         .timeline-card {
             border-left: 2px solid #333;
-            border-right: none;
-            width: 90%;
+            width: 85%;
+            margin-left: 15%;
             padding: 1rem;
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             background-color: #1a1a1a;
             position: relative;
-            margin-left: 10%;
         }
         
-        .timeline-item-reverse .timeline-card {
-            border-right: 2px solid #333;
-            border-left: none;
-            margin-left: 0;
-            margin-right: 10%;
-        }
-        
-        /* Mobile timeline line positioning */
-        @media (max-width: 768px) {
-            .timeline-line {
-                left: 10%;
-            }
-            
-            .timeline-node {
-                left: 10%;
-            }
+        .timeline-card .expanded-line {
+            left: -2px;
+            background-color: #4CAF50;
         }
         
         /* Desktop layout */
-        @media (min-width: 769px) {
+        @media (min-width: 768px) {
+            .timeline-container {
+                padding: 0;
+            }
+            
+            .timeline-line {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-node {
+                left: 50%;
+            }
+            
             .timeline-item {
+                align-items: center;
                 flex-direction: row;
             }
             
@@ -130,18 +112,22 @@
             .timeline-card {
                 width: 50%;
                 margin-left: 0;
+                border-left: 2px solid #333;
+                border-right: none;
             }
             
             .timeline-item-reverse .timeline-card {
-                margin-right: 0;
+                border-right: 2px solid #333;
+                border-left: none;
             }
             
-            .timeline-line {
-                left: 50%;
+            .timeline-item .timeline-card .expanded-line {
+                left: -2px;
             }
             
-            .timeline-node {
-                left: 50%;
+            .timeline-item-reverse .timeline-card .expanded-line {
+                right: -2px;
+                left: auto;
             }
         }
     </style>
@@ -233,20 +219,6 @@
                 }
             };
 
-            const fetchTranslations = async (lang) => {
-                try {
-                    const response = await fetch(`./locales/${lang}.json`);
-                    if (!response.ok) {
-                        throw new Error(`Failed to load ${lang}.json`);
-                    }
-                    const data = await response.json();
-                    return data;
-                } catch (error) {
-                    console.error("Failed to load language data:", error);
-                    return null;
-                }
-            };
-
             function renderTimeline(data) {
                 if (!data) return;
 
@@ -263,9 +235,11 @@
 
                 data.projects.forEach((project, index) => {
                     const isLeft = index % 2 === 1;
+                    const isMobile = window.innerWidth < 768;
 
                     const itemContainer = document.createElement('div');
-                    itemContainer.className = `relative timeline-item ${isLeft ? '' : 'timeline-item-reverse'}`;
+                    // On mobile, all items are the same. On desktop, alternate
+                    itemContainer.className = `timeline-item ${!isMobile && isLeft ? 'timeline-item-reverse' : ''}`;
 
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
@@ -334,8 +308,6 @@
                             svgIcon.style.transform = 'rotate(45deg)';
                             itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             
-                            // The line's height is now calculated to cover the title and date,
-                            // plus a few extra pixels for visual effect.
                             lineToAnimate.style.backgroundColor = project.type === 'university' ? '#4CAF50' : '#2196F3';
                             lineToAnimate.style.height = `${titleContainer.offsetHeight + 12}px`;
                             
@@ -393,6 +365,12 @@
             
             document.getElementById('language-selector').addEventListener('change', (event) => {
                 setLanguage(event.target.value);
+            });
+
+            // Handle window resize to update layout if needed
+            window.addEventListener('resize', () => {
+                const currentLang = document.getElementById('language-selector').value;
+                setLanguage(currentLang);
             });
 
             setLanguage('en');
