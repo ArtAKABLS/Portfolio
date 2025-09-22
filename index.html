@@ -51,19 +51,13 @@
     </style>
 </head>
 <body class="antialiased min-h-screen">
-    <div class="fixed top-5 left-5 z-50">
-        <button id="lang-en" class="px-4 py-2 mr-2 bg-gray-700 text-white rounded-md shadow-md hover:bg-gray-600 transition-colors">EN</button>
-        <button id="lang-de" class="px-4 py-2 bg-gray-700 text-white rounded-md shadow-md hover:bg-gray-600 transition-colors">DE</button>
-    </div>
 
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- The language selector is now aligned to the top-right and will scroll with the page -->
-        <div class="flex justify-end pt-5 mb-10">
-            <select id="language-selector" class="px-4 py-2 bg-gray-800 text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-600 transition-all cursor-pointer hover:bg-gray-700">
-                <option value="en">EN</option>
-                <option value="de">DE</option>
-            </select>
-        </div>
+    <div class="fixed top-5 right-5 z-50">
+        <select id="language-selector" class="px-4 py-2 bg-gray-800 text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-600 transition-all cursor-pointer hover:bg-gray-700">
+            <option value="en">EN</option>
+            <option value="de">DE</option>
+        </select>
+    </div>
 
     <!-- The loading indicator is visible by default -->
     <div id="loading-indicator" class="flex items-center justify-center min-h-screen text-2xl font-bold">
