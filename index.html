@@ -140,6 +140,15 @@
                     return null;
                 }
             };
+
+            // New function to update the timeline line's height
+            function updateTimelineLineHeight() {
+                // Wait for the next animation frame to ensure the DOM is updated
+                requestAnimationFrame(() => {
+                    const totalHeight = timelineContainer.scrollHeight;
+                    timelineLine.style.height = `${totalHeight}px`;
+                });
+            }
             
             function renderTimeline(data) {
                 if (!data) return;
@@ -187,13 +196,11 @@
                     titleContainer.addEventListener('click', () => {
                         const svgIcon = titleContainer.querySelector('svg');
                         const isExpanded = titleContainer.classList.contains('expanded');
-                        const cardContainer = contentCard;
                         const contentToExpand = expandableContent;
 
                         if (lastExpandedContent && lastExpandedContent !== contentToExpand) {
                             lastExpandedContent.style.maxHeight = '0px';
                             lastExpandedIcon.style.transform = 'rotate(0deg)';
-                            // Using a direct reference for better reliability
                             const prevTitleContainer = lastExpandedContent.previousElementSibling;
                             if (prevTitleContainer) {
                                 prevTitleContainer.classList.remove('expanded');
@@ -215,6 +222,9 @@
                             lastExpandedIcon = null;
                             titleContainer.classList.remove('expanded');
                         }
+                        
+                        // Update the timeline line's height after every click
+                        updateTimelineLineHeight();
                     });
 
                     contentCard.appendChild(titleContainer);
@@ -232,12 +242,8 @@
                         const nodeTop = contentCard.offsetTop + (titleContainer.offsetTop) + (titleContainer.offsetHeight / 2) - (node.offsetHeight / 2);
                         node.style.top = `${nodeTop}px`;
                         
-                        // Adjust the height of the vertical line to match the content
-                        const lastItem = timelineContainer.lastElementChild;
-                        if (lastItem) {
-                            const lastItemOffset = lastItem.offsetTop + lastItem.offsetHeight / 2;
-                            timelineLine.style.height = `${lastItemOffset}px`;
-                        }
+                        // FIX: Adjust the height of the vertical line to match the total height of all timeline items.
+                        updateTimelineLineHeight();
                     }, 0);
                 });
             }
