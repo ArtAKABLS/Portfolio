@@ -13,10 +13,11 @@
             font-family: 'Inter', sans-serif;
             background-color: #121212;
             color: #f0f0f0;
+            overflow-x: hidden;
         }
 
-        /* The timeline container and line now span the full viewport height */
         .timeline-container {
+            position: relative;
             min-height: 100vh;
         }
 
@@ -38,7 +39,8 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 2;
+            z-index: 3;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
 
         .university-project {
@@ -48,11 +50,50 @@
         .personal-project {
             background-color: #2196F3;
         }
+        
+        /* New animated line for the expanded content */
+        .expanded-line {
+            position: absolute;
+            width: 2px;
+            height: 0;
+            top: 0;
+            z-index: 2;
+            transition: height 0.5s ease-in-out;
+        }
+
+        .timeline-card-right {
+            border-left: 2px solid #333;
+        }
+        .timeline-card-left {
+            border-right: 2px solid #333;
+        }
+        
+        @media (max-width: 640px) {
+            .timeline-container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+            .timeline-line {
+                left: 1rem;
+                transform: none;
+            }
+            .timeline-node {
+                left: 1rem;
+                transform: translateX(-50%);
+            }
+            .timeline-card-left, .timeline-card-right {
+                width: 100%;
+                margin-left: 2rem;
+            }
+            .timeline-card-left {
+                 border-right: none;
+                 border-left: 2px solid #333;
+            }
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen">
 
-    <!-- The language selector is now a dropdown menu -->
     <div class="fixed top-5 right-5 z-50">
         <select id="language-selector" class="px-2 py-1 bg-gray-800 text-white rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-600 transition-all cursor-pointer hover:bg-gray-700">
             <option value="en">EN</option>
@@ -60,22 +101,18 @@
         </select>
     </div>
 
-    <!-- The loading indicator is visible by default -->
     <div id="loading-indicator" class="flex items-center justify-center min-h-screen text-2xl font-bold">
         Loading...
     </div>
 
-    <!-- The main content is hidden by default -->
     <div id="main-content" class="container mx-auto py-20 px-4 sm:px-6 lg:px-8 hidden">
         <h1 id="main-title" class="text-4xl sm:text-5xl lg:text-6xl font-bold text-center mb-16 sm:mb-24"></h1>
 
-        <!-- The timeline container will now have its height set dynamically -->
         <div class="relative timeline-container">
             <div id="timeline-line" class="timeline-line"></div>
         </div>
     </div>
     
-    <!-- Legend for color coding - text now handled by JavaScript -->
     <div class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-gray-900 bg-opacity-70 backdrop-blur-sm shadow-lg rounded-t-lg flex justify-center space-x-8 text-white">
         <div class="flex items-center space-x-2">
             <div class="w-4 h-4 rounded-full bg-[#4CAF50]"></div>
@@ -98,9 +135,9 @@
             
             let lastExpandedContent = null;
             let lastExpandedIcon = null;
+            let lastExpandedNode = null;
+            let lastExpandedLine = null;
 
-            // This object holds the content for each language.
-            // In a real application with GitHub Pages, this would be fetched from separate JSON files.
             const translations = {
                 en: {
                     "title": "Timeline",
@@ -142,8 +179,6 @@
                 }
             };
 
-            // This is the correct logic to load JSON files dynamically.
-            // This is what you would use on a live server like GitHub Pages.
             const fetchTranslations = async (lang) => {
                 try {
                     const response = await fetch(`./locales/${lang}.json`);
@@ -161,93 +196,128 @@
             function renderTimeline(data) {
                 if (!data) return;
 
-                // Clear existing timeline items, but keep the timeline line
                 timelineContainer.querySelectorAll('.timeline-item').forEach(el => el.remove());
                 mainTitle.textContent = data.title;
                 
-                // Set the legend labels based on the selected language
                 universityLegendLabel.textContent = data.legend.university;
                 personalLegendLabel.textContent = data.legend.personal;
                 
                 lastExpandedContent = null;
                 lastExpandedIcon = null;
+                lastExpandedNode = null;
+                lastExpandedLine = null;
 
                 data.projects.forEach((project, index) => {
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
-                    itemContainer.className = `flex items-center w-full my-4 sm:my-8 relative timeline-item ${isLeft ? 'flex-row-reverse' : 'flex-row'}`;
+                    itemContainer.className = `relative timeline-item flex items-center w-full my-4 sm:my-8 ${isLeft ? 'sm:flex-row-reverse' : 'sm:flex-row'} flex-row`;
 
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
+                    node.setAttribute('aria-hidden', 'true');
                     
                     const contentCard = document.createElement('div');
-                    contentCard.className = `w-1/2 p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700`;
+                    contentCard.className = `relative w-full sm:w-1/2 p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700 ${isLeft ? 'sm:timeline-card-left' : 'sm:timeline-card-right'}`;
                     
-                    const titleContainer = document.createElement('div');
-                    titleContainer.className = "flex justify-between items-center cursor-pointer";
+                    const titleContainer = document.createElement('button');
+                    titleContainer.className = "flex justify-between items-center w-full cursor-pointer";
+                    titleContainer.setAttribute('aria-expanded', 'false');
+                    titleContainer.setAttribute('aria-controls', `timeline-content-${index}`);
                     titleContainer.innerHTML = `
-                        <div class="flex flex-col">
+                        <div class="flex flex-col text-left">
                             <h3 class="text-xl font-semibold">${project.title}</h3>
                             <span class="text-xs text-gray-400 mt-1">${project.date}</span>
                         </div>
-                        <svg class="w-6 h-6 text-white transition-transform transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-6 h-6 text-white transition-transform transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
                     `;
 
                     const expandableContent = document.createElement('div');
                     expandableContent.className = 'overflow-hidden transition-[max-height] duration-500 ease-in-out max-h-0';
+                    expandableContent.id = `timeline-content-${index}`;
                     expandableContent.innerHTML = `
                         <p class="text-gray-300 mt-2">${project.description}</p>
                         <div class="mt-4 p-4 bg-gray-700 rounded-md h-32 w-full flex items-center justify-center text-gray-400 text-sm">
                             [Placeholder for visualization of "${project.title}"]
                         </div>
                     `;
+                    
+                    const expandedLine = document.createElement('div');
+                    expandedLine.className = 'expanded-line';
+                    if (isLeft) {
+                        expandedLine.style.right = '0';
+                    } else {
+                        expandedLine.style.left = '0';
+                    }
+
 
                     titleContainer.addEventListener('click', () => {
                         const svgIcon = titleContainer.querySelector('svg');
                         const isExpanded = titleContainer.classList.contains('expanded');
                         const contentToExpand = expandableContent;
+                        const lineToAnimate = expandedLine;
 
                         if (lastExpandedContent && lastExpandedContent !== contentToExpand) {
                             lastExpandedContent.style.maxHeight = '0px';
                             lastExpandedIcon.style.transform = 'rotate(0deg)';
+                            lastExpandedNode.classList.remove('z-40');
+                            lastExpandedNode.style.backgroundColor = lastExpandedNode.classList.contains('university-project') ? '#4CAF50' : '#2196F3';
                             const prevTitleContainer = lastExpandedContent.previousElementSibling;
                             if (prevTitleContainer) {
                                 prevTitleContainer.classList.remove('expanded');
+                                prevTitleContainer.setAttribute('aria-expanded', 'false');
+                            }
+                            if (lastExpandedLine) {
+                                lastExpandedLine.style.height = '0';
                             }
                         }
                         
-                        // Toggle the expanded state
                         if (!isExpanded) {
                             contentToExpand.style.maxHeight = `${contentToExpand.scrollHeight}px`;
                             svgIcon.style.transform = 'rotate(45deg)';
                             itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            lineToAnimate.style.backgroundColor = project.type === 'university' ? '#4CAF50' : '#2196F3';
+                            lineToAnimate.style.height = '100%';
+
                             lastExpandedContent = contentToExpand;
                             lastExpandedIcon = svgIcon;
+                            lastExpandedNode = node;
+                            lastExpandedLine = lineToAnimate;
                             titleContainer.classList.add('expanded');
+                            titleContainer.setAttribute('aria-expanded', 'true');
+                            
+                            node.classList.add('z-40');
+                            node.style.backgroundColor = 'white';
+                            
                         } else {
                             contentToExpand.style.maxHeight = '0px';
                             svgIcon.style.transform = 'rotate(0deg)';
+
+                            node.style.backgroundColor = node.classList.contains('university-project') ? '#4CAF50' : '#2196F3';
+                            if (lineToAnimate) {
+                                lineToAnimate.style.height = '0';
+                            }
+                            
                             lastExpandedContent = null;
                             lastExpandedIcon = null;
+                            lastExpandedNode = null;
+                            lastExpandedLine = null;
                             titleContainer.classList.remove('expanded');
+                            titleContainer.setAttribute('aria-expanded', 'false');
                         }
                     });
 
                     contentCard.appendChild(titleContainer);
                     contentCard.appendChild(expandableContent);
-
+                    contentCard.appendChild(expandedLine);
                     itemContainer.appendChild(node);
                     itemContainer.appendChild(contentCard);
                     timelineContainer.appendChild(itemContainer);
 
-                    // Defer position calculation until after the elements are rendered
                     setTimeout(() => {
-                        // FIX: Calculate the node's top position based on the offset of its parent card
-                        // and the offset of the title container within the card. This ensures
-                        // the node aligns perfectly with the center of the plus icon.
                         const nodeTop = contentCard.offsetTop + (titleContainer.offsetTop) + (titleContainer.offsetHeight / 2) - (node.offsetHeight / 2);
                         node.style.top = `${nodeTop}px`;
                     }, 0);
@@ -255,11 +325,8 @@
             }
 
             async function setLanguage(lang) {
-                // Show loading indicator and hide content
                 loadingIndicator.classList.remove('hidden');
                 mainContent.classList.add('hidden');
-
-                // Add a small delay to simulate network latency
                 await new Promise(resolve => setTimeout(resolve, 200));
 
                 const data = translations[lang];
@@ -269,18 +336,15 @@
                 } else {
                     console.error("Using default language due to failed fetch.");
                 }
-
-                // Hide loading indicator and show content
+                
                 loadingIndicator.classList.add('hidden');
                 mainContent.classList.remove('hidden');
             }
             
-            // This is the updated event listener for the dropdown menu.
             document.getElementById('language-selector').addEventListener('change', (event) => {
                 setLanguage(event.target.value);
             });
 
-            // Load the default language on initial page load
             setLanguage('en');
         });
     </script>
