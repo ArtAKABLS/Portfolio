@@ -87,9 +87,9 @@
                 position: relative;
             }
             .timeline-card-left, .timeline-card-right {
-                width: calc(100% - 3rem);
+                width: calc(100% - 3.5rem);
                 margin: 0;
-                left: 2rem;
+                left: 2.5rem;
                 border-left: 2px solid #333;
                 border-right: none;
             }
@@ -98,18 +98,6 @@
                 right: auto !important;
                 top: 0 !important;
                 height: 100%; /* Default height for mobile, will be animated */
-            }
-            .timeline-node {
-                left: 1rem;
-                transform: translateX(-50%);
-                z-index: 4;
-            }
-            .timeline-card-right, .timeline-card-left {
-                width: calc(100% - 3rem);
-                margin: 0;
-                left: 2rem;
-                border-right: none;
-                border-left: 2px solid #333;
             }
         }
     </style>
@@ -176,7 +164,7 @@
                         { "date": "2021", "title": "Full-Stack Web App", "description": "A comprehensive project showcasing skills in both front-end and back-end development.", "type": "personal" },
                         { "date": "2020", "title": "Mobile Game Development", "description": "Developed a mobile game for both iOS and Android platforms using a cross-platform engine.", "type": "university" },
                         { "date": "2019", "title": "Machine Learning Predictor", "description": "Built a predictive model to forecast market trends with high accuracy.", "type": "personal" },
-                        { "date": "2017", "title": "Open Source Contribution", "description": "Contributed to a popular open-source project, adding new features and fixing bugs.", "type": "university" },
+                        { "date": "2017", "title": "Open Source Contribution", "description": "Tributed to a popular open-source project, adding new features and fixing bugs.", "type": "university" },
                         { "date": "2016", "title": "Personal Blog Engine", "description": "Created a lightweight and highly customizable blog engine from scratch.", "type": "personal" }
                     ]
                 },
@@ -190,7 +178,7 @@
                         { "date": "15. November 2018", "title": "Squareflair Heute", "description": "Wir entwerfen und bauen von Grund auf neu. Wenn wir sagen 100% maßgeschneidert, meinen wir das auch so – und wir bauen alle Websites auf der Squarespace Entwicklerplattform.", "type": "university" },
                         { "date": "2009", "title": "Squareflair wurde geboren", "description": "Wir können alles für Squarespace-Benutzer sein!", "type": "personal" },
                         { "date": "2005", "title": "Kreative Komponente gestartet", "description": "Wir können alles für alle sein!", "type": "university" },
-                        { "date": "65 Millionen v. Chr.", "title": "Dinosaurier durchstreiften die Erde", "description": "RAWWWWWWWWRRR", "type": "personal" },
+                        { "date": "65 Millionen v. Chr.", "title": "Dinosaurs Roamed the Earth", "description": "RAWWWWWWWWRRR", "type": "personal" },
                         { "date": "2022", "title": "Projekt Datenvisualisierung", "description": "Ein tiefer Einblick in die Erstellung interaktiver Diagramme und Grafiken mit modernen JavaScript-Bibliotheken.", "type": "university" },
                         { "date": "2021", "title": "Full-Stack Webanwendung", "description": "Ein umfassendes Projekt, das Fähigkeiten in der Front-End- und Back-End-Entwicklung demonstriert.", "type": "personal" },
                         { "date": "2020", "title": "Mobile Spieleentwicklung", "description": "Entwickelte ein mobiles Spiel für iOS- und Android-Plattformen mithilfe einer plattformübergreifenden Engine.", "type": "university" },
@@ -307,8 +295,9 @@
                             svgIcon.style.transform = 'rotate(45deg)';
                             itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             
+                            // Updated line height to extend to the height of the card's content before expansion
                             lineToAnimate.style.backgroundColor = project.type === 'university' ? '#4CAF50' : '#2196F3';
-                            lineToAnimate.style.height = `${contentToExpand.scrollHeight + titleContainer.offsetHeight}px`; // Adjust height based on content
+                            lineToAnimate.style.height = `${titleContainer.offsetHeight + 16}px`;
                             
                             lastExpandedContent = contentToExpand;
                             lastExpandedIcon = svgIcon;
