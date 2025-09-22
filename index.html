@@ -71,37 +71,79 @@
             left: auto; /* Override the default left property */
         }
 
-        /* Enforcing the desktop layout on all screen sizes */
+        /* Mobile-first approach */
         .timeline-item {
             display: flex;
             align-items: center;
             width: 100%;
             margin-top: 2rem;
             margin-bottom: 2rem;
-            flex-direction: row; 
+            flex-direction: column;
+            position: relative;
         }
 
         .timeline-item-reverse {
-            flex-direction: row-reverse;
+            flex-direction: column;
         }
         
-        /* Consistent card styling for all devices */
+        /* Mobile card styling */
         .timeline-card {
             border-left: 2px solid #333;
             border-right: none;
-            width: 50%;
+            width: 90%;
             padding: 1rem;
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             background-color: #1a1a1a;
             position: relative;
+            margin-left: 10%;
         }
         
         .timeline-item-reverse .timeline-card {
             border-right: 2px solid #333;
             border-left: none;
+            margin-left: 0;
+            margin-right: 10%;
         }
         
+        /* Mobile timeline line positioning */
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 10%;
+            }
+            
+            .timeline-node {
+                left: 10%;
+            }
+        }
+        
+        /* Desktop layout */
+        @media (min-width: 769px) {
+            .timeline-item {
+                flex-direction: row;
+            }
+            
+            .timeline-item-reverse {
+                flex-direction: row-reverse;
+            }
+            
+            .timeline-card {
+                width: 50%;
+                margin-left: 0;
+            }
+            
+            .timeline-item-reverse .timeline-card {
+                margin-right: 0;
+            }
+            
+            .timeline-line {
+                left: 50%;
+            }
+            
+            .timeline-node {
+                left: 50%;
+            }
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen">
