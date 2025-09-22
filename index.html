@@ -60,45 +60,28 @@
             transition: height 0.5s ease-in-out;
         }
 
-        /* Default (all screen sizes) styles for timeline items to mimic desktop */
+        .timeline-card-right {
+            border-left: 2px solid #333;
+        }
+        .timeline-card-left {
+            border-right: 2px solid #333;
+        }
+        
+        /* Desktop-first approach for improved layout */
         .timeline-item {
             display: flex;
             align-items: center;
             width: 100%;
             margin-top: 2rem;
             margin-bottom: 2rem;
+            flex-direction: row; /* Default to row for desktop */
         }
 
-        .timeline-card-wrapper {
-            width: 50%; /* Each card takes half the width */
+        .timeline-item.sm\:flex-row-reverse {
+            flex-direction: row-reverse;
         }
 
-        /* Card styles for right side of the timeline */
-        .timeline-item.flex-row .timeline-card {
-            border-left: 2px solid #333;
-            padding-left: 1rem;
-            margin-left: calc(50% + 20px); /* Push it right, accounting for line and gap */
-            margin-right: 0;
-        }
-
-        /* Card styles for left side of the timeline */
-        .timeline-item.flex-row-reverse .timeline-card {
-            border-right: 2px solid #333;
-            padding-right: 1rem;
-            margin-right: calc(50% + 20px); /* Push it left, accounting for line and gap */
-            margin-left: 0;
-        }
-
-        /* Adjust expanded line positioning based on card side */
-        .timeline-item.flex-row .timeline-card .expanded-line {
-            left: 0;
-            right: unset;
-        }
-
-        .timeline-item.flex-row-reverse .timeline-card .expanded-line {
-            right: 0;
-            left: unset;
-        }
+    
 
     </style>
 </head>
@@ -221,19 +204,14 @@
                     const isLeft = index % 2 === 0;
 
                     const itemContainer = document.createElement('div');
-                    // Always use flex-row or flex-row-reverse, no sm: prefix
-                    itemContainer.className = `relative timeline-item ${isLeft ? 'flex-row-reverse' : 'flex-row'}`;
+                    itemContainer.className = `relative timeline-item sm:my-8 ${isLeft ? 'sm:flex-row-reverse' : 'sm:flex-row'}`;
 
                     const node = document.createElement('div');
                     node.className = `timeline-node ${project.type}-project`;
                     node.setAttribute('aria-hidden', 'true');
                     
-                    const contentCardWrapper = document.createElement('div');
-                    contentCardWrapper.className = `timeline-card-wrapper`; // Wrapper for card positioning
-
                     const contentCard = document.createElement('div');
-                    // Remove desktop-specific classes and apply general 'timeline-card'
-                    contentCard.className = `relative w-full p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700 timeline-card`;
+                    contentCard.className = `relative w-full sm:w-1/2 p-4 rounded-lg shadow-lg bg-gray-800 border border-gray-700 ${isLeft ? 'sm:timeline-card-left' : 'sm:timeline-card-right'}`;
                     
                     const titleContainer = document.createElement('button');
                     titleContainer.className = "flex justify-between items-center w-full cursor-pointer";
@@ -261,8 +239,12 @@
                     
                     const expandedLine = document.createElement('div');
                     expandedLine.className = 'expanded-line';
-                    // CSS now handles its left/right placement based on parent itemContainer's flex direction
-                    
+                    if (isLeft) {
+                        expandedLine.style.right = '0';
+                    } else {
+                        expandedLine.style.left = '0';
+                    }
+
                     titleContainer.addEventListener('click', () => {
                         const svgIcon = titleContainer.querySelector('svg');
                         const isExpanded = titleContainer.classList.contains('expanded');
@@ -290,7 +272,7 @@
                             itemContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             
                             lineToAnimate.style.backgroundColor = project.type === 'university' ? '#4CAF50' : '#2196F3';
-                            lineToAnimate.style.height = `${titleContainer.offsetHeight + 16}px`; // +16 for padding/margin
+                            lineToAnimate.style.height = `${titleContainer.offsetHeight + 16}px`;
                             
                             lastExpandedContent = contentToExpand;
                             lastExpandedIcon = svgIcon;
@@ -323,30 +305,13 @@
                     contentCard.appendChild(titleContainer);
                     contentCard.appendChild(expandableContent);
                     contentCard.appendChild(expandedLine);
-                    contentCardWrapper.appendChild(contentCard); // Put the card inside its wrapper
                     itemContainer.appendChild(node);
-                    itemContainer.appendChild(contentCardWrapper); // Add the wrapper to the item container
+                    itemContainer.appendChild(contentCard);
                     timelineContainer.appendChild(itemContainer);
 
-                    // Position the node after it's in the DOM and rendered
                     setTimeout(() => {
-                        const cardRect = contentCard.getBoundingClientRect();
-                        const titleRect = titleContainer.getBoundingClientRect();
-                        const timelineContainerRect = timelineContainer.getBoundingClientRect();
-
-                        // Node Top calculation remains the same, relative to the timeline container
-                        const nodeTop = (titleRect.top + titleRect.height / 2) - timelineContainerRect.top - (node.offsetHeight / 2);
+                        const nodeTop = contentCard.offsetTop + (titleContainer.offsetTop) + (titleContainer.offsetHeight / 2) - (node.offsetHeight / 2);
                         node.style.top = `${nodeTop}px`;
-
-                        // Re-calculate on resize for responsive node positioning
-                        const handleResize = () => {
-                            const currentTitleRect = titleContainer.getBoundingClientRect();
-                            const currentTimelineContainerRect = timelineContainer.getBoundingClientRect();
-                            const newNodeTop = (currentTitleRect.top + currentTitleRect.height / 2) - currentTimelineContainerRect.top - (node.offsetHeight / 2);
-                            node.style.top = `${newNodeTop}px`;
-                        };
-                        window.addEventListener('resize', handleResize);
-
                     }, 0);
                 });
             }
